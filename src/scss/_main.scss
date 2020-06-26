@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-size: 1.6rem;
+  background: $white;
+  color: $black;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+// TODO clean up
+.MuiSlider-valueLabel {
+  font-size: 12px !important;
+}

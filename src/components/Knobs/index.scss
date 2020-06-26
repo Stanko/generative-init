@@ -1,0 +1,47 @@
+@import "../../scss/base";
+
+.Knobs {
+  @include lg {
+    display: flex;
+  }
+}
+
+.Knobs-panel {
+  display: none;
+  padding: 2rem;
+  border-bottom: 1px solid $gray-100;
+
+  @include lg {
+    border: none;
+    border-right: 1px solid $gray-100;
+    flex-basis: $panel-width-lg;
+    flex-shrink: 0;
+    height: 100vh;
+    overflow: auto;
+  }
+}
+
+.Knobs-panel--visible {
+  display: block;
+}
+
+.Knobs-toggle {
+  padding: 0 0.5rem;
+  font-size: 2.2rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.Knobs-app {
+  padding: 2rem;
+  
+  @include lg {
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+}
+
+.Knobs-reset {
+  margin-right: 1rem;
+}
