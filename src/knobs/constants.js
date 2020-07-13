@@ -1,5 +1,5 @@
-import generateRandomString from './generate-random-string';
-import random from './random';
+import generateRandomString from '../utils/generate-random-string';
+import random from '../utils/random';
 
 export const knobTypes = {
   BOOL: 'checkbox',

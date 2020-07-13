@@ -19,21 +19,14 @@
   },
   "homepage": "https://github.com/Stanko/generative-init#readme",
   "dependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/plugin-proposal-class-properties": "^7.10.1",
-    "@babel/preset-env": "^7.10.3",
-    "@babel/preset-react": "^7.10.1",
-    "@material-ui/core": "^4.10.2",
-    "classnames": "^2.2.6",
-    "generative-utils": "git://github.com/Stanko/generative-utils.git#master",
-    "lodash.throttle": "^4.1.1",
     "node-sass": "^4.14.1",
     "p5": "^1.0.0",
     "parcel-bundler": "^1.12.4",
     "random-words": "^1.1.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.12.21",
     "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "react-hot-loader": "^4.12.21"
   }
 }
