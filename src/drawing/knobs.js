@@ -1,6 +1,6 @@
 import {
   knobTypes,
-} from './constants';
+} from '../knobs/constants';
 
 const KNOBS = [
   {

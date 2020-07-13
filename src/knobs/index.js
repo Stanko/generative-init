@@ -4,7 +4,7 @@ import {
   knobRandomValueGenerators,
 } from './constants';
 
-import KNOBS from './knobs';
+import KNOBS from '../drawing/knobs';
 
 const DEFAULT_VALUES = {};
 
