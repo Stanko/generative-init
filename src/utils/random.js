@@ -1,4 +1,4 @@
-export default function random(a, b, decimalPlaces = 16) {
+export default function random(a, b, rng = Math.random, decimalPlaces = 16) {
   const hasA = typeof a !== 'undefined';
   const hasB = typeof b !== 'undefined';
 
@@ -13,7 +13,7 @@ export default function random(a, b, decimalPlaces = 16) {
     max = a;
   }
 
-  const value = Math.random() * (max - min) + min;
+  const value = (rng || Math.random)() * (max - min) + min;
   
   if (decimalPlaces) {
     return parseFloat(value.toFixed(decimalPlaces));   
