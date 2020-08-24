@@ -27,3 +27,33 @@ export const knobRandomValueGenerators = {
     return random(min, max, decimalPlaces);
   },
 };
+
+export const knobInputGenerator = {
+  [knobTypes.BOOL]: (knob, value, handler) => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'checkbox');
+    input.checked = value;
+    input.addEventListener('change', () => handler(knob.name, input.checked));
+
+    return input;
+  },
+  [knobTypes.SEED]: (knob, value, handler) => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('value', value);
+    input.addEventListener('change', () => handler(knob.name, input.value));
+
+    return input;
+  },
+  [knobTypes.RANGE]: (knob, value, handler) => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'range');
+    input.setAttribute('min', knob.min);
+    input.setAttribute('max', knob.max);
+    input.setAttribute('step', knob.step);
+    input.setAttribute('value', value);
+    input.addEventListener('change', () => handler(knob.name, input.value));
+
+    return input;
+  },
+};

@@ -1,0 +1,24 @@
+.knobs {
+  font-size: 14px;
+
+  label {
+    display: inline-flex;
+    text-transform: capitalize;
+    height: 30px;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  input {
+    margin-left: 6px;
+  }
+
+  input[type=checkbox] {
+    transform: translateY(1px);
+  }
+
+  input[type=text] {
+    font-size: 14px;
+    width: 100px;
+  }
+}
