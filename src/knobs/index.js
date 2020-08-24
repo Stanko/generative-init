@@ -3,7 +3,9 @@ import {
   knobParsers,
   knobRandomValueGenerators,
   knobInputGenerator,
+  knobTypes,
 } from './constants';
+import generateRandomString from '../utils/generate-random-string';
 
 import KNOBS from '../drawing/knobs';
 
@@ -70,10 +72,21 @@ function buildUI() {
     const input = knobInputGenerator[knob.type](knob, currentValues[knob.name], handler);
     knobInputs[knob.name] = input;
 
-    const knobElement = document.createElement('label');
-    knobElement.innerHTML = knob.name;
+    const knobElement = document.createElement('div');
+    const label = document.createElement('label');
+    label.innerHTML = knob.name;
 
-    knobElement.appendChild(input);
+    label.appendChild(input);
+    knobElement.appendChild(label);
+
+    if (knob.type === knobTypes.SEED) {
+      const reloadButton = document.createElement('button');
+      reloadButton.innerHTML += '↻';
+      reloadButton.addEventListener('click', () => handler(knob.name, generateRandomString()));
+      
+      knobElement.appendChild(reloadButton);
+    }
+
     container.appendChild(knobElement);
   });
 }

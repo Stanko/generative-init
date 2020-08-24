@@ -1,11 +1,15 @@
 .knobs {
   font-size: 14px;
 
+  div,
   label {
     display: inline-flex;
     text-transform: capitalize;
     height: 30px;
     align-items: center;
+  }
+
+  div {
     margin-right: 20px;
   }
 
@@ -21,4 +25,24 @@
     font-size: 14px;
     width: 100px;
   }
+
+  button {
+    padding: 0 5px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
+
+.randomize {
+  padding: 2px 6px;
 }
