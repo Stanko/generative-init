@@ -24,7 +24,7 @@ export const knobRandomValueGenerators = {
   [knobTypes.RANGE]: ({ min, max, step = 1 }) => {
     const decimalPlaces = step % 1 === 0 ? 0 : 2;
 
-    return random(min, max, decimalPlaces);
+    return random(min, max, null, decimalPlaces);
   },
 };
 
