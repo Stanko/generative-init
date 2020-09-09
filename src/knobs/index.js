@@ -17,7 +17,7 @@ KNOBS.forEach((knob) => {
 
   defaultValues[knob.name] = hasUserDefaultValue
     ? knob.default
-    : knobDefaultValues[knob.type];
+    : knobDefaultValues[knob.type]();
 });
 
 function getStateFromHash() {

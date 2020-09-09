@@ -8,9 +8,9 @@ export const knobTypes = {
 };
 
 export const knobDefaultValues = {
-  [knobTypes.BOOL]: true,
-  [knobTypes.SEED]: generateRandomString(),
-  [knobTypes.RANGE]: 0,
+  [knobTypes.BOOL]: () => true,
+  [knobTypes.SEED]: generateRandomString,
+  [knobTypes.RANGE]: () => 0,
 };
 
 export const knobParsers = {
