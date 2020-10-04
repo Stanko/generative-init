@@ -17,7 +17,7 @@ KNOBS.forEach((knob) => {
 
   defaultValues[knob.name] = hasUserDefaultValue
     ? knob.default
-    : knobDefaultValues[knob.type]();
+    : knobDefaultValues[knob.type](knob);
 });
 
 function getStateFromHash() {
@@ -73,6 +73,7 @@ function buildUI() {
     knobInputs[knob.name] = input;
 
     const knobElement = document.createElement('div');
+    knobElement.className = 'knob';
     const label = document.createElement('label');
     label.innerHTML = knob.name;
 
@@ -97,9 +98,11 @@ function updateUI() {
   Object.keys(knobInputs).forEach(key => {
     const input = knobInputs[key];
     const value = currentValues[key];
-
+    
     if (input.type === 'checkbox') {
       input.checked = value;
+    } if (input.className === 'radio-options') {
+      document.querySelector(`input[name=${ key }][value=${ value }]`).checked = true;
     } else {
       input.value = value;  
     }

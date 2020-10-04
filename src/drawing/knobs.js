@@ -28,6 +28,15 @@ const KNOBS = [
     default: 1000,
   },
   {
+    name: 'radio',
+    type: knobTypes.RADIO,
+    options: [
+      'one',
+      'two',
+      'three',
+    ],
+  },
+  {
     name: 'mainSeed',
     type: knobTypes.SEED,
   },
