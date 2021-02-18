@@ -1,5 +1,20 @@
+@mixin knob-focus {
+  outline: none;
+
+  &:focus {
+    box-shadow: 0 0 0 2px $blue;
+    border-color: $blue;
+  }
+}
+
+$button-light: rgba(0, 0, 0, 0.01);
+$button-still: rgba(0, 0, 0, 0.03);
+$button-hover: rgba(0, 0, 0, 0.05);
+$button-active: rgba(0, 0, 0, 0.08);
+
 .knobs {
   font-size: 14px;
+  margin-bottom: 3px;
 
   .knob,
   .knob > label {
@@ -17,58 +32,106 @@
     margin-left: 6px;
   }
 
-  input[type=checkbox] {
+  input[type='checkbox'] {
     transform: translateY(1px);
   }
 
-  input[type=text] {
+  input[type='text'] {
+    @include knob-focus;
     font-size: 14px;
     width: 100px;
     height: 24px;
     border: 1px solid #ddd;
     padding: 3px;
     border-radius: 2px;
-    outline: none;
+  }
 
-    &:focus {
-      box-shadow: 0 0 0 2px $blue;
-      border-color: $blue;
+  input[type='radio'] {
+    left: -100vw;
+    opacity: 0;
+    position: absolute;
+
+    &:checked + span {
+      background: $blue;
+      color: $white;
+    }
+
+    &:focus + span {
+      box-shadow: 0 0 0 3px rgba($blue, 0.3);
     }
   }
 
-  input[type=radio] {
-    margin-right: 5px;
+  .radio-options {
+    margin: 0 0 0 4px;
   }
 
-  .radio-options {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-right: 0;
+  .radio-options span {
+    padding: 3px 8px;
+
+    &:hover {
+      background: $button-hover;
+    }
   }
 
   .radio-options label {
     display: inline-flex;
     align-items: center;
+    border: 1px solid $button-active;
+    border-right: 0;
+    background: $button-light;
+
+    &:last-child {
+      border-right: 1px solid $button-still;
+    }
   }
 
   button {
-    padding: 0 5px;
+    @include knob-focus;
+    background: $button-still;
+    border-radius: 4px;
+    border: 1px solid $button-still;
+    color: #777;
     font-size: 16px;
-    border: none;
-    background: none;
-    opacity: 0.7;
+    height: 24px;
+    margin-left: 2px;
+    padding: 0;
+    width: 24px;
 
     &:hover {
-      opacity: 1;
+      background: $button-hover;
+      color: #000;
     }
 
     &:active {
+      background: $button-active;
       transform: translateY(1px);
+    }
+
+    &:focus {
+      color: #000;
     }
   }
 }
 
 .randomize {
-  padding: 2px 6px;
+  @include knob-focus;
+  background: $button-still;
+  border-radius: 4px;
+  border: 1px solid $button-still;
+  color: #234;
+  font-size: 14px;
+  padding: 0 8px;
+  line-height: 0;
+  height: 32px;
+
+  &:hover {
+    background: $button-hover;
+    color: #000;
+  }
+
+  &:active {
+    background: $button-active;
+    transform: translateY(1px);
+    color: #000;
+  }
 }

@@ -10,12 +10,23 @@ const KNOBS = [
     disableRandomization: true,
   },
   {
+    name: 'format',
+    type: knobTypes.RADIO,
+    options: [
+      'canvas',
+      'svg',
+      'both',
+    ],
+    default: 'canvas',
+    disableRandomization: true,
+  },
+  {
     name: 'width',
     type: knobTypes.RANGE,
     disableRandomization: true,
     min: 500,
     step: 50,
-    max: 2000,
+    max: 4000,
     default: 1000,
   },
   {
@@ -24,17 +35,8 @@ const KNOBS = [
     disableRandomization: true,
     min: 500,
     step: 50,
-    max: 2000,
+    max: 4000,
     default: 1000,
-  },
-  {
-    name: 'radio',
-    type: knobTypes.RADIO,
-    options: [
-      'one',
-      'two',
-      'three',
-    ],
   },
   {
     name: 'mainSeed',

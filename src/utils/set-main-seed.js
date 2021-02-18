@@ -1,6 +1,6 @@
 import seedrandom from 'seedrandom';
 
-// Backup reference to the browsers Math.random method
+// Backup reference to the browser's Math.random method
 export const originalRandom = Math.random;
 
 export default function setMainSeed(seed) {

@@ -55,7 +55,7 @@ function setHash(hashState = {}) {
     const key = item.name;
     return (hash += `/${hashState[key]}`);
   }, '');
-};
+}
 
 function buildUI() {
   const container = document.querySelector('.knobs');
@@ -64,16 +64,20 @@ function buildUI() {
   function handler(name, value) {
     const newValues = getStateFromHash();
     newValues[name] = value;
-    
+
     setHash(newValues);
   }
 
-  KNOBS.forEach(knob => {
-    const input = knobInputGenerator[knob.type](knob, currentValues[knob.name], handler);
+  KNOBS.forEach((knob) => {
+    const input = knobInputGenerator[knob.type](
+      knob,
+      currentValues[knob.name],
+      handler
+    );
     knobInputs[knob.name] = input;
 
     const knobElement = document.createElement('div');
-    knobElement.className = 'knob';
+    knobElement.className = `knob ${knob.type}`;
     const label = document.createElement('label');
     label.innerHTML = knob.name;
 
@@ -83,8 +87,10 @@ function buildUI() {
     if (knob.type === knobTypes.SEED) {
       const reloadButton = document.createElement('button');
       reloadButton.innerHTML += '↻';
-      reloadButton.addEventListener('click', () => handler(knob.name, generateRandomString()));
-      
+      reloadButton.addEventListener('click', () =>
+        handler(knob.name, generateRandomString())
+      );
+
       knobElement.appendChild(reloadButton);
     }
 
@@ -95,21 +101,22 @@ function buildUI() {
 function updateUI() {
   const currentValues = getStateFromHash();
 
-  Object.keys(knobInputs).forEach(key => {
+  Object.keys(knobInputs).forEach((key) => {
     const input = knobInputs[key];
     const value = currentValues[key];
-    
+
     if (input.type === 'checkbox') {
       input.checked = value;
-    } if (input.className === 'radio-options') {
-      document.querySelector(`input[name=${ key }][value=${ value }]`).checked = true;
+    }
+    if (input.className === 'radio-options') {
+      document.querySelector(
+        `input[name=${key}][value=${value}]`
+      ).checked = true;
     } else {
-      input.value = value;  
+      input.value = value;
     }
   });
 }
-
-
 
 export function randomize() {
   const randomValues = {};
@@ -145,7 +152,7 @@ export default function knobs(callback) {
 
   window.addEventListener('hashchange', () => {
     const state = getStateFromHash();
-  
+
     const options = {
       ...defaultValues,
       ...state,

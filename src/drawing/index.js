@@ -1,35 +1,43 @@
-import p5 from 'p5';
-import setMainSeed from '../utils/set-main-seed';
+import memoizee from 'memoizee';
 
-let sketchInstance;
+import random from '../utils/random';
 
-export default function drawing(options) {
+const getCircle = memoizee((mainSeed, width, height) => {
+  return {
+    x: random(width * 0.1, width * 0.9, null, 0),
+    y: random(height * 0.1, height * 0.9, null, 0),
+    r: 30,
+  };
+});
+
+const getAsyncCircle = memoizee((mainSeed, width, height) => {
+  return new Promise((resolve, reject) => {
+    const circle = {
+      x: random(width * 0.1, width * 0.9, null, 0),
+      y: random(height * 0.1, height * 0.9, null, 0),
+      r: 30,
+    };
+
+    setTimeout(() => {
+      resolve(circle);
+    }, 100);
+  });
+}, { promise: true });
+
+export default async function getDrawingData(options) {
   const {
     width,
     height,
     mainSeed,
+    format,
   } = options;
-  
-  // Swap Math.random for a seeded rng
-  setMainSeed(mainSeed);
 
-  // Destroy p5 sketch
-  if (sketchInstance) {
-    sketchInstance.remove();
-  }
+  // --------- Main logic
+  const circle = getCircle(mainSeed, width, height);
+  const asyncCircle = await getAsyncCircle(mainSeed, width, height);
 
-  sketchInstance = new p5((sketch) => {
-    sketch.setup = () => {
-      sketch.noLoop();
-  
-      sketch.createCanvas(width, height);
-  
-      sketch.background(0);
-    };
-  
-    sketch.draw = () => {
-      sketch.fill('white')
-      sketch.circle(100, 100, 40);
-    };
-  }, document.querySelector('.sketch'));
+  return {
+    circle,
+    asyncCircle,
+  };
 }
