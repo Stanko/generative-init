@@ -1,6 +1,6 @@
 // import { IS_BROWSER, IS_NODE } from './constants/env';
 import knobs, { randomize } from './knobs';
-import render from './drawing/render'
+import render from './drawing/render';
 
 
 function main(options) {

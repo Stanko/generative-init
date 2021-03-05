@@ -10,6 +10,12 @@ const KNOBS = [
     disableRandomization: true,
   },
   {
+    name: 'lowRes',
+    type: knobTypes.BOOL,
+    default: false,
+    disableRandomization: true,
+  },
+  {
     name: 'format',
     type: knobTypes.RADIO,
     options: [

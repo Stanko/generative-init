@@ -20,9 +20,9 @@
   "homepage": "https://github.com/Stanko/generative-init#readme",
   "dependencies": {
     "memoizee": "^0.4.15",
-    "node-sass": "^4.14.1",
-    "p5": "^1.1.9",
-    "parcel-bundler": "^1.12.4",
+    "node-sass": "^5.0.0",
+    "p5": "^1.2.0",
+    "parcel-bundler": "^1.12.3",
     "random-words": "^1.1.1",
     "seedrandom": "^3.0.5"
   },

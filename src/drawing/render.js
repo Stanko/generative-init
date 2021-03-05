@@ -29,6 +29,7 @@ export default async function render(options) {
     height,
     mainSeed,
     format,
+    lowRes,
   } = options;
 
   const renderSVG = format === 'svg' || format === 'both';
@@ -70,6 +71,9 @@ export default async function render(options) {
 
       p5.setup = () => {
         p5.noLoop();
+        if (lowRes) {
+          p5.pixelDensity(0.5);
+        }
     
         p5.createCanvas(width, height);
     
