@@ -1,9 +1,11 @@
-// import { IS_BROWSER, IS_NODE } from './constants/env';
 import knobs, { randomize } from './knobs';
 import render from './drawing/render';
+import setTitle from './utils/set-title';
 
 function main(options) {
   console.log(options);
+
+  setTitle(options, '');
   render(options);
 }
 

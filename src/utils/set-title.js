@@ -297,10 +297,13 @@ const setTitle = (options = null, title = '') => {
   const h = parseInt(rng() * 360, 10);
   const color = `hsl(${h}, 60%, 60%)`;
   const icon = getIcon(color);
+  const coolFace = coolFaces[random(0, coolFaces.length, rng, 0)];
+
+  console.log('%c  ', `background: ${color}`, coolFace);
 
   document.querySelector('.favicon').setAttribute('href', icon);
 
-  document.title = title + coolFaces[random(0, coolFaces.length, rng, 0)];
+  document.title = title + coolFace;
 };
 
 export default setTitle;
