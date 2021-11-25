@@ -10,7 +10,6 @@ const sketchWrapperElement = document.querySelector('.sketch');
 let sketchInstance;
 let svgElement;
 
-
 function createSVG(options) {
   // Create SVG element
   if (!svgElement) {
@@ -24,30 +23,24 @@ function createSVG(options) {
 }
 
 export default async function render(options) {
-  const {
-    width,
-    height,
-    mainSeed,
-    format,
-    lowRes,
-  } = options;
+  const { width, height, mainSeed, format, lowRes } = options;
 
   const renderSVG = format === 'svg' || format === 'both';
   const renderCanvas = format === 'canvas' || format === 'both';
-  
+
   // Swap Math.random for a seeded rng
   setMainSeed(mainSeed);
   setTitle(options, '');
 
   // --------- Main logic
   const data = await getDrawingData(options);
-  
+
   // --------- SVG
   if (renderSVG) {
     createSVG(options);
 
     let svgContent = '';
-    
+
     svgContent += `<circle cx="${data.circle.x}" cy="${data.circle.y}" r="${data.circle.r}" fill="none" stroke="black" />`;
     svgContent += `<circle cx="${data.asyncCircle.x}" cy="${data.asyncCircle.y}" r="${data.asyncCircle.r}" fill="none" stroke="black" />`;
 
@@ -74,15 +67,19 @@ export default async function render(options) {
         if (lowRes) {
           p5.pixelDensity(0.5);
         }
-    
+
         p5.createCanvas(width, height);
-    
+
         p5.background(255);
       };
-    
+
       p5.draw = () => {
         p5.circle(data.circle.x, data.circle.y, data.circle.r * 2);
-        p5.circle(data.asyncCircle.x, data.asyncCircle.y, data.asyncCircle.r * 2);
+        p5.circle(
+          data.asyncCircle.x,
+          data.asyncCircle.y,
+          data.asyncCircle.r * 2
+        );
       };
     }, sketchWrapperElement);
   }

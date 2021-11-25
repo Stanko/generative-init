@@ -1,6 +1,4 @@
-import {
-  knobTypes,
-} from '../knobs/constants';
+import { knobTypes } from '../knobs/constants';
 
 const KNOBS = [
   {
@@ -18,11 +16,7 @@ const KNOBS = [
   {
     name: 'format',
     type: knobTypes.RADIO,
-    options: [
-      'canvas',
-      'svg',
-      'both',
-    ],
+    options: ['canvas', 'svg', 'both'],
     default: 'canvas',
     disableRandomization: true,
   },

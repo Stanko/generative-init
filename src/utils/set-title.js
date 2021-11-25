@@ -298,9 +298,7 @@ const setTitle = (options = null, title = '') => {
   const color = `hsl(${h}, 60%, 60%)`;
   const icon = getIcon(color);
 
-  document
-    .querySelector('.favicon')
-    .setAttribute('href', icon);
+  document.querySelector('.favicon').setAttribute('href', icon);
 
   document.title = title + coolFaces[random(0, coolFaces.length, rng, 0)];
 };

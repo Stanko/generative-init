@@ -2,7 +2,6 @@
 import knobs, { randomize } from './knobs';
 import render from './drawing/render';
 
-
 function main(options) {
   console.log(options);
   render(options);

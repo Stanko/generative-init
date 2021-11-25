@@ -14,9 +14,9 @@ export default function random(a, b, rng = Math.random, decimalPlaces = 16) {
   }
 
   const value = (rng || Math.random)() * (max - min) + min;
-  
+
   if (decimalPlaces) {
-    return parseFloat(value.toFixed(decimalPlaces));   
+    return parseFloat(value.toFixed(decimalPlaces));
   }
 
   return Math.round(value);

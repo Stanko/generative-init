@@ -16,12 +16,12 @@ export const knobDefaultValues = {
 };
 
 export const knobParsers = {
-  [knobTypes.BOOL]: value => value === 'true',
-  [knobTypes.RANGE]: value => parseFloat(value),
+  [knobTypes.BOOL]: (value) => value === 'true',
+  [knobTypes.RANGE]: (value) => parseFloat(value),
 };
 
 export const knobRandomValueGenerators = {
-  [knobTypes.BOOL]: () => Math.random() > 0.5 ? true : false,
+  [knobTypes.BOOL]: () => (Math.random() > 0.5 ? true : false),
   [knobTypes.SEED]: generateRandomString,
   [knobTypes.RANGE]: ({ min, max, step = 1 }) => {
     const decimalPlaces = step % 1 === 0 ? 0 : 2;
@@ -64,11 +64,11 @@ export const knobInputGenerator = {
   },
   [knobTypes.RADIO]: (knob, value, handler) => {
     const input = document.createElement('div');
-    input.className = 'radio-options'
+    input.className = 'radio-options';
 
     knob.options.forEach((optionValue) => {
       const label = document.createElement('label');
-      
+
       const span = document.createElement('span');
       span.innerHTML = optionValue;
 

@@ -2,10 +2,10 @@
   "name": "generative-init",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "source": "src/index.html",
   "scripts": {
-    "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/components/Knobs/index.jsx",
+    "start": "parcel",
+    "build": "parcel build",
     "node": "parcel --target node --bundle-node-modules ./src/js/index.js"
   },
   "repository": {
@@ -20,14 +20,17 @@
   "homepage": "https://github.com/Stanko/generative-init#readme",
   "dependencies": {
     "memoizee": "^0.4.15",
-    "node-sass": "^5.0.0",
     "p5": "^1.2.0",
-    "parcel-bundler": "^1.12.3",
+    "parcel": "^2.0.1",
     "random-words": "^1.1.1",
+    "sass": "^1.43.5",
     "seedrandom": "^3.0.5"
   },
   "browserslist": [
     "last 1 Chrome versions",
     "last 1 Firefox versions"
-  ]
+  ],
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.1"
+  }
 }
