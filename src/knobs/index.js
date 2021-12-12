@@ -156,7 +156,7 @@ export default function knobs(callback) {
 
   buildUI();
 
-  window.addEventListener('hashchange', () => {
+  const hashCallback = () => {
     const state = getStateFromHash();
 
     const options = {
@@ -167,5 +167,13 @@ export default function knobs(callback) {
     updateUI();
 
     callback(options);
-  });
+  };
+
+  window.addEventListener('hashchange', hashCallback);
+
+  if (module.hot) {
+    module.hot.accept(() => {
+      window.removeEventListener('hashchange', hashCallback);
+    });
+  }
 }
