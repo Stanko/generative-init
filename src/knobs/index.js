@@ -139,6 +139,8 @@ function randomize() {
   setHash(randomValues);
 }
 
+export let hashCallback;
+
 export default function knobs(callback) {
   const state = getStateFromHash();
   const isValidHash = state !== null;
@@ -156,7 +158,7 @@ export default function knobs(callback) {
 
   buildUI();
 
-  const hashCallback = () => {
+  hashCallback = () => {
     const state = getStateFromHash();
 
     const options = {
@@ -170,10 +172,4 @@ export default function knobs(callback) {
   };
 
   window.addEventListener('hashchange', hashCallback);
-
-  if (module.hot) {
-    module.hot.accept(() => {
-      window.removeEventListener('hashchange', hashCallback);
-    });
-  }
 }

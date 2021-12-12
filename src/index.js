@@ -1,4 +1,4 @@
-import knobs from './knobs';
+import knobs, { hashCallback } from './knobs';
 import render from './drawing/render';
 import setTitle from './utils/set-title';
 
@@ -16,3 +16,10 @@ document.querySelector('.app').innerHTML = `
 `;
 
 knobs(main);
+
+if (module.hot) {
+  module.hot.dispose(() => {
+    // Remove hash change on HMR
+    window.removeEventListener('hashchange', hashCallback);
+  });
+}
