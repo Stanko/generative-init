@@ -96,6 +96,12 @@ function buildUI() {
 
     container.appendChild(knobElement);
   });
+
+  const randomizeButton = document.createElement('button');
+  randomizeButton.className = 'randomize';
+  randomizeButton.innerHTML = '🎲 Randomize';
+  randomizeButton.addEventListener('click', randomize);
+  container.appendChild(randomizeButton);
 }
 
 function updateUI() {
@@ -118,7 +124,7 @@ function updateUI() {
   });
 }
 
-export function randomize() {
+function randomize() {
   const randomValues = {};
   const currentValues = getStateFromHash();
 

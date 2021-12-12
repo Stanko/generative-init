@@ -5,8 +5,7 @@ import setMainSeed from '../utils/set-main-seed';
 import setTitle from '../utils/set-title';
 
 // Globals
-const sketchWrapperElement = document.querySelector('.sketch');
-
+let sketchWrapperElement;
 let sketchInstance;
 let svgElement;
 
@@ -23,6 +22,8 @@ function createSVG(options) {
 }
 
 export default async function render(options) {
+  sketchWrapperElement = document.querySelector('.sketch');
+
   const { width, height, mainSeed, format, lowRes } = options;
 
   const renderSVG = format === 'svg' || format === 'both';

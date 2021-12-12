@@ -81,11 +81,11 @@ $button-active: rgba(0, 0, 0, 0.08);
     background: $button-light;
 
     &:last-child {
-      border-right: 1px solid $button-still;
+      border-right: 1px solid $button-active;
     }
   }
 
-  button {
+  button:not(.randomize) {
     @include knob-focus;
     background: $button-still;
     border-radius: 4px;

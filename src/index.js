@@ -1,4 +1,4 @@
-import knobs, { randomize } from './knobs';
+import knobs from './knobs';
 import render from './drawing/render';
 import setTitle from './utils/set-title';
 
@@ -9,6 +9,10 @@ function main(options) {
   render(options);
 }
 
-knobs(main);
+// Reset template
+document.querySelector('.app').innerHTML = `
+<div class="sketch"></div>
+<div class="knobs"></div>
+`;
 
-document.querySelector('.randomize').addEventListener('click', randomize);
+knobs(main);
