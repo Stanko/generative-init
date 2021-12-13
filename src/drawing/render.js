@@ -2,7 +2,6 @@ import p5constructor from 'p5';
 
 import getDrawingData from './index';
 import setMainSeed from '../utils/set-main-seed';
-import setTitle from '../utils/set-title';
 
 // Globals
 let sketchWrapperElement;
@@ -31,7 +30,6 @@ export default async function render(options) {
 
   // Swap Math.random for a seeded rng
   setMainSeed(mainSeed);
-  setTitle(options, '');
 
   // --------- Main logic
   const data = await getDrawingData(options);
