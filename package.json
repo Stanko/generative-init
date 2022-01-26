@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/Stanko/generative-init#readme",
   "dependencies": {
-    "mem": "^9.0.1",
-    "p5": "^1.2.0",
-    "random-words": "^1.1.1",
+    "mem": "^9.0.2",
+    "p5": "^1.4.0",
+    "random-words": "^1.1.2",
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.1",
-    "parcel": "^2.0.1"
+    "@parcel/transformer-sass": "^2.2.1",
+    "parcel": "^2.2.1"
   },
   "browserslist": [
     "last 1 Chrome versions",
