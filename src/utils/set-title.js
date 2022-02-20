@@ -297,7 +297,7 @@ const setTitle = (options = null, title = '') => {
   const h = parseInt(rng() * 360, 10);
   const color = `hsl(${h}, 60%, 60%)`;
   const icon = getIcon(color);
-  const coolFace = coolFaces[random(0, coolFaces.length, rng, 0)];
+  const coolFace = coolFaces[random(0, coolFaces.length - 1, rng, 0)];
 
   console.log('%c  ', `background: ${color}`, coolFace);
 
