@@ -1,3 +1,4 @@
+import seedrandom from 'seedrandom';
 import {
   knobDefaultValues,
   knobParsers,
@@ -6,7 +7,6 @@ import {
   knobTypes,
 } from './constants';
 import generateRandomString from '../utils/generate-random-string';
-
 import KNOBS from '../drawing/knobs';
 
 const defaultValues = {};
@@ -41,6 +41,10 @@ function getStateFromHash() {
 
     if (hasValue) {
       state[key] = parser ? parser(value) : value;
+
+      if (knob.type === knobTypes.SEED) {
+        state[`${key}Rng`] = seedrandom(state[key]);
+      }
     } else {
       // Hash is invalid
       return null;
