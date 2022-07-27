@@ -2,5 +2,10 @@ dist
 .cache
 .DS_Store
 node_modules
-.parcel-cache
+node_modules
 dist
+dist-ssr
+*.local
+
+# WIP svelte components
+src/components

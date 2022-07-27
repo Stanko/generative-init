@@ -111,6 +111,45 @@ $button-active: rgba(0, 0, 0, 0.08);
       color: #000;
     }
   }
+
+  .easing {
+    position: relative;
+    margin-left: 5px;
+
+    svg {
+      overflow: visible;
+      display: block;
+      width: 60px;
+    }
+  }
+
+  .easing-button {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: grab;
+    font-size: 0;
+    color: transparent;
+    transition: border 250ms;
+    border: 5px solid transparent;
+
+    &::after {
+      content: '';
+      display: block;
+      background-color: #eee;
+      border: 1px solid #ddd;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+    }
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.05);
+    }
+  }
 }
 
 .randomize {

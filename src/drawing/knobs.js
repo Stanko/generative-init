@@ -8,19 +8,6 @@ const KNOBS = [
     disableRandomization: true,
   },
   {
-    name: 'lowRes',
-    type: knobTypes.BOOL,
-    default: false,
-    disableRandomization: true,
-  },
-  {
-    name: 'format',
-    type: knobTypes.RADIO,
-    options: ['canvas', 'svg', 'both'],
-    default: 'canvas',
-    disableRandomization: true,
-  },
-  {
     name: 'width',
     type: knobTypes.RANGE,
     disableRandomization: true,
@@ -41,6 +28,10 @@ const KNOBS = [
   {
     name: 'mainSeed',
     type: knobTypes.SEED,
+  },
+  {
+    name: 'easing',
+    type: knobTypes.EASING,
   },
 ];
 

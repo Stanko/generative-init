@@ -1,13 +1,8 @@
 import seedrandom from 'seedrandom';
-import {
-  knobDefaultValues,
-  knobParsers,
-  knobRandomValueGenerators,
-  knobInputGenerator,
-  knobTypes,
-} from './constants';
+import { knobDefaultValues, knobParsers, knobRandomValueGenerators, knobInputGenerator, knobTypes } from './constants';
 import generateRandomString from '../utils/generate-random-string';
 import KNOBS from '../drawing/knobs';
+import easingInput from './easing';
 
 const defaultValues = {};
 const knobInputs = {};
@@ -15,9 +10,7 @@ const knobInputs = {};
 KNOBS.forEach((knob) => {
   const hasUserDefaultValue = typeof knob.default !== 'undefined';
 
-  defaultValues[knob.name] = hasUserDefaultValue
-    ? knob.default
-    : knobDefaultValues[knob.type](knob);
+  defaultValues[knob.name] = hasUserDefaultValue ? knob.default : knobDefaultValues[knob.type](knob);
 });
 
 function getStateFromHash() {
@@ -73,11 +66,7 @@ function buildUI() {
   }
 
   KNOBS.forEach((knob) => {
-    const input = knobInputGenerator[knob.type](
-      knob,
-      currentValues[knob.name],
-      handler
-    );
+    const input = knobInputGenerator[knob.type](knob, currentValues[knob.name], handler);
     knobInputs[knob.name] = input;
 
     const knobElement = document.createElement('div');
@@ -91,9 +80,7 @@ function buildUI() {
     if (knob.type === knobTypes.SEED) {
       const reloadButton = document.createElement('button');
       reloadButton.innerHTML += '↻';
-      reloadButton.addEventListener('click', () =>
-        handler(knob.name, generateRandomString())
-      );
+      reloadButton.addEventListener('click', () => handler(knob.name, generateRandomString()));
 
       knobElement.appendChild(reloadButton);
     }
@@ -118,10 +105,13 @@ function updateUI() {
     if (input.type === 'checkbox') {
       input.checked = value;
     }
+
+    if (input.className === 'easing') {
+      easingInput.update(input, value);
+    }
+
     if (input.className === 'radio-options') {
-      document.querySelector(
-        `input[name=${key}][value=${value}]`
-      ).checked = true;
+      document.querySelector(`input[name=${key}][value=${value}]`).checked = true;
     } else {
       input.value = value;
     }

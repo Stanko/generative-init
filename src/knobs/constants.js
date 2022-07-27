@@ -1,11 +1,21 @@
 import generateRandomString from '../utils/generate-random-string';
 import random from '../utils/random';
+import easingInput from './easing';
+
+const PREDEFINED_EASINGS = {
+  ease: [0.25, 0.1, 0.25, 1],
+  linear: [0, 0, 1, 1],
+  'ease-in': [0.42, 0, 1, 1],
+  'ease-out': [0, 0, 0.58, 1],
+  'ease-in-out': [0.42, 0, 0.58, 1],
+};
 
 export const knobTypes = {
   BOOL: 'checkbox',
   RANGE: 'range',
   SEED: 'text',
   RADIO: 'radio',
+  EASING: 'easing',
 };
 
 export const knobDefaultValues = {
@@ -13,11 +23,13 @@ export const knobDefaultValues = {
   [knobTypes.SEED]: generateRandomString,
   [knobTypes.RANGE]: () => 0,
   [knobTypes.RADIO]: ({ options }) => options[0],
+  [knobTypes.EASING]: () => PREDEFINED_EASINGS['ease-in-out'],
 };
 
 export const knobParsers = {
   [knobTypes.BOOL]: (value) => value === 'true',
   [knobTypes.RANGE]: (value) => parseFloat(value),
+  [knobTypes.EASING]: (value) => value.split(',').map((n) => parseFloat(n)),
 };
 
 export const knobRandomValueGenerators = {
@@ -31,6 +43,11 @@ export const knobRandomValueGenerators = {
   [knobTypes.RADIO]: ({ options }) => {
     const index = random(0, options.length - 1, null, 0);
     return options[index];
+  },
+  [knobTypes.EASING]: () => {
+    const min = 0;
+    const max = 1;
+    return [random(min, max, null, 2), random(min, max, null, 2), random(min, max, null, 2), random(min, max, null, 2)];
   },
 };
 
@@ -90,5 +107,8 @@ export const knobInputGenerator = {
     });
 
     return input;
+  },
+  [knobTypes.EASING]: (knob, value, handler) => {
+    return easingInput.render(knob, value, handler);
   },
 };

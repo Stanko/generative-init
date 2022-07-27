@@ -5,8 +5,7 @@
   "source": "src/index.html",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "start": "vite",
+    "start": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -15,18 +14,18 @@
     "url": "git+https://github.com/Stanko/generative-init.git"
   },
   "author": "Stanko",
-  "license": "All rights reserved",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Stanko/generative-init/issues"
   },
   "homepage": "https://github.com/Stanko/generative-init#readme",
   "dependencies": {
+    "bezier-easing": "^2.1.0",
     "mem": "^9.0.2",
-    "p5": "^1.4.0",
-    "random-words": "^1.1.2",
+    "random-words": "^1.2.0",
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "vite": "^3.0.3"
+    "vite": "^3.1.1"
   }
 }
