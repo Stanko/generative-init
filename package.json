@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "source": "src/index.html",
+  "type": "module",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build",
-    "node": "parcel --target node --bundle-node-modules ./src/js/index.js"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -25,11 +27,6 @@
     "seedrandom": "^3.0.5"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.2.1",
-    "parcel": "^2.2.1"
-  },
-  "browserslist": [
-    "last 1 Chrome versions",
-    "last 1 Firefox versions"
-  ]
+    "vite": "^3.0.3"
+  }
 }

@@ -1,4 +1,4 @@
-import mem from 'mem/dist/index';
+import mem from 'mem';
 
 export default function memoize(fn) {
   return mem(fn, {
