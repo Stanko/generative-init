@@ -6,6 +6,7 @@ node_modules
 dist
 dist-ssr
 *.local
+TODO.md
 
 # WIP svelte components
 src/components
