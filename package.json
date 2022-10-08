@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Stanko/generative-init#readme",
   "dependencies": {
     "bezier-easing": "^2.1.0",
+    "js-angusj-clipper": "^1.2.1",
     "mem": "^9.0.2",
     "random-words": "^1.2.0",
     "seedrandom": "^3.0.5"

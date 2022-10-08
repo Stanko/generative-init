@@ -1,25 +1,10 @@
 import getDrawingData from './index';
 import setMainSeed from '../utils/set-main-seed';
+import svg from '../utils/svg';
 
-// Globals
-let sketchWrapperElement;
-let svgElement;
-
-function createSVG(options) {
-  // Create SVG element
-  if (!svgElement) {
-    sketchWrapperElement.innerHTML = '<svg class="svg"></svg>';
-    svgElement = document.querySelector('.svg');
-  }
-
-  svgElement.setAttribute('viewBox', `0 0 ${options.width} ${options.height}`);
-  svgElement.setAttribute('width', options.width);
-  svgElement.setAttribute('height', options.height);
-}
+let timer;
 
 export default async function render(options) {
-  sketchWrapperElement = document.querySelector('.sketch');
-
   const { width, height, mainSeed } = options;
 
   // Swap Math.random for a seeded rng
@@ -28,16 +13,24 @@ export default async function render(options) {
   // --------- Main logic
   const data = await getDrawingData(options);
 
-  // --------- SVG
-  createSVG(options);
+  // --------- Render
 
+  const svgElement = svg.create(options);
+  console.time((timer = 'svg render'));
   let svgContent = '';
 
   data.circles.forEach((circle) => {
-    svgContent += `<circle cx="${circle.x}" cy="${circle.y}" r="${circle.r}" fill="none" stroke="black" />`;
+    svgContent += svg.circle(circle, circle.r, {
+      fill: 'none',
+      stroke: 'black',
+    });
   });
 
-  svgContent += `<circle cx="${data.asyncCircle.x}" cy="${data.asyncCircle.y}" r="${data.asyncCircle.r}" fill="none" stroke="black" />`;
+  svgContent += svgContent += svg.circle(data.asyncCircle, data.asyncCircle.r, {
+    fill: 'none',
+    stroke: 'black',
+  });
 
   svgElement.innerHTML = svgContent;
+  console.timeEnd(timer);
 }

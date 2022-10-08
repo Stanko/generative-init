@@ -1,16 +1,16 @@
 import random from '../utils/random';
 import memoize from '../utils/memoize';
+import { getClipperInstance } from '../utils/clipper';
 
-import bezierEasing from 'bezier-easing';
+// Global instance on js-angusj-clipper
+let clipper;
 
 const getCircles = memoize((mainSeed, width, height, easing) => {
   const circles = [];
   const step = 1 / 100;
 
-  const easingFunction = bezierEasing(...easing);
-
   for (let i = 0; i <= 1; i += step) {
-    const t = easingFunction(i);
+    const t = easing(i);
 
     circles.push({
       x: t * width,
@@ -37,10 +37,12 @@ const getAsyncCircle = memoize((mainSeed, width, height) => {
 });
 
 export default async function getDrawingData(options) {
-  const { width, height, mainSeed, format, easing } = options;
+  const { width, height, mainSeed, easing, easingFn } = options;
+
+  clipper = getClipperInstance();
 
   // --------- Main logic
-  const circles = getCircles(mainSeed, width, height, easing);
+  const circles = getCircles(mainSeed, width, height, easingFn);
   const asyncCircle = await getAsyncCircle(mainSeed, width, height);
 
   return {

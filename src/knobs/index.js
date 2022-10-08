@@ -1,4 +1,6 @@
 import seedrandom from 'seedrandom';
+import bezierEasing from 'bezier-easing';
+
 import { knobDefaultValues, knobParsers, knobRandomValueGenerators, knobInputGenerator, knobTypes } from './constants';
 import generateRandomString from '../utils/generate-random-string';
 import KNOBS from '../drawing/knobs';
@@ -36,7 +38,17 @@ function getStateFromHash() {
       state[key] = parser ? parser(value) : value;
 
       if (knob.type === knobTypes.SEED) {
+        const id = `${key}-${state[key]}`;
+
         state[`${key}Rng`] = seedrandom(state[key]);
+        // Adding display name which is used for memoization
+        state[`${key}Rng`].displayName = id;
+      } else if (knob.type === knobTypes.EASING) {
+        const id = `${key}-${state[key].join('_').replace(/\./g, '')}`;
+
+        state[`${key}Fn`] = bezierEasing(...state[key]);
+        // Adding display name which is used for memoization
+        state[`${key}Fn`].displayName = id;
       }
     } else {
       // Hash is invalid
