@@ -1,3 +1,5 @@
+@use 'variables';
+
 *,
 *::before,
 *::after {
@@ -10,9 +12,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
     sans-serif;
   font-size: 16px;
-  background: $gray-100;
-  color: $black;
+  background: variables.$gray-100;
+  color: variables.$black;
   padding: 12px;
+  accent-color: variables.$blue;
 }
 
 input,
@@ -32,7 +35,7 @@ canvas {
   display: block;
   padding: 50px;
   box-shadow: 0 0 5px #ddd;
-  background: $white;
+  background: variables.$white;
   max-width: 100% !important;
   max-height: calc(100vh - 120px) !important;
   margin-bottom: 10px;

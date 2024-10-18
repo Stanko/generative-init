@@ -1,9 +1,11 @@
+@use "variables";
+
 @mixin knob-focus {
   outline: none;
 
   &:focus {
-    box-shadow: 0 0 0 2px $blue;
-    border-color: $blue;
+    box-shadow: 0 0 0 2px variables.$blue;
+    border-color: variables.$blue;
   }
 }
 
@@ -52,12 +54,12 @@ $button-active: rgba(0, 0, 0, 0.08);
     position: absolute;
 
     &:checked + span {
-      background: $blue;
-      color: $white;
+      background: variables.$blue;
+      color: variables.$white;
     }
 
     &:focus + span {
-      box-shadow: 0 0 0 3px rgba($blue, 0.3);
+      box-shadow: 0 0 0 3px rgba(variables.$blue, 0.3);
     }
   }
 
