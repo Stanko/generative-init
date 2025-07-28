@@ -9,7 +9,7 @@ export type DualRangeControlOptions = {
   step?: number;
 };
 
-type DualRangeValue = {
+export type DualRangeValue = {
   min: number;
   max: number;
 };

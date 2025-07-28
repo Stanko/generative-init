@@ -1,10 +1,11 @@
 import getDrawingData from './index';
 import setMainSeed from '../utils/set-main-seed';
 import svg from '../utils/svg';
+import type { controls } from '..';
 
 let timer;
 
-export default async function render(options) {
+export default async function render(options: ReturnType<typeof controls.getOptions>) {
   const { width, height, mainSeed } = options;
 
   // Swap Math.random for a seeded rng

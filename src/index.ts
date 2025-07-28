@@ -23,7 +23,7 @@ import './scss/index.scss';
 
 import { Controls } from './controls/controls.ts';
 
-const controls = new Controls([
+export const controls = new Controls([
   {
     type: 'boolean',
     name: 'debug',
@@ -94,7 +94,7 @@ const controls = new Controls([
     type: 'easing',
     name: 'easing',
   },
-]);
+] as const);
 
 const controlsDiv = document.querySelector('.controls') as HTMLDivElement;
 // const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
@@ -115,5 +115,6 @@ document.addEventListener('keypress', (e: KeyboardEvent) => {
 
 controls.onChange = () => {
   const options = controls.getOptions();
+
   render(options);
 };

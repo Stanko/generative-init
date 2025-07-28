@@ -1,6 +1,8 @@
+import type BezierEasing from 'bezier-easing';
+import type { PRNG } from 'seedrandom';
 import { toCamelCase, toKebabCase, toSpaceCase } from '../utils/string-utils';
 import { BooleanControl } from './control-boolean';
-import { DualRangeControl } from './control-dual-range';
+import { DualRangeControl, type DualRangeValue } from './control-dual-range';
 import { EasingControl } from './control-easing';
 import { RadioControl } from './control-radio';
 import { RangeControl } from './control-range';
@@ -54,15 +56,60 @@ const controlMap: Record<ControlType, ControlConstructor<ControlComponent>> = {
   'dual-range': DualRangeControl,
 };
 
+interface ControlTypeRegistry {
+  boolean: {
+    config: ControlConfig<boolean>;
+    instance: BooleanControl;
+    value: boolean;
+  };
+  range: {
+    config: ControlConfig<number>;
+    instance: RangeControl;
+    value: number;
+  };
+  radio: {
+    config: ControlConfig<string>;
+    instance: RadioControl;
+    value: string;
+  };
+  seed: {
+    config: ControlConfig<string>;
+    instance: SeedControl;
+    value: string;
+  };
+  easing: {
+    config: ControlConfig<string>;
+    instance: EasingControl;
+    value: string;
+  };
+  'dual-range': {
+    config: ControlConfig<DualRangeValue>;
+    instance: DualRangeControl;
+    value: DualRangeValue;
+  };
+}
+
+type TypedControlConfig = ControlTypeRegistry[keyof ControlTypeRegistry]['config'];
+
+type OptionsMap<Configs extends readonly TypedControlConfig[]> =
+  // Base mapping: control name → value
+  {
+    [C in Configs[number] as C['name']]: ControlTypeRegistry[C['type']]['value'];
+  } & { // Extra mapping: easing → nameEasing
+    [C in Extract<Configs[number], { type: 'easing' }> as `${C['name']}Easing`]: ReturnType<typeof BezierEasing>;
+  } & { // Extra mapping: seed → nameRng
+    [C in Extract<Configs[number], { type: 'seed' }> as `${C['name']}Rng`]: PRNG;
+  };
+
 type HashItem = { name: string; value: unknown };
 
-export class Controls {
-  controls: ControlComponent[];
-  controlsMap: Record<string, ControlComponent> = {};
+export class Controls<Configs extends readonly TypedControlConfig[]> {
+  controls: ControlTypeRegistry[keyof ControlTypeRegistry]['instance'][];
+  controlsMap: Record<string, ControlTypeRegistry[keyof ControlTypeRegistry]['instance']> = {};
 
   onChange?: () => void;
 
-  constructor(controls: ControlConfig[]) {
+  constructor(controls: Configs) {
     this.controls = controls.map((config) => {
       const onChange = () =>
         // name: string, value: unknown
@@ -183,8 +230,8 @@ export class Controls {
     this.onChange?.();
   };
 
-  getOptions = () => {
-    const options: Record<string, unknown> = {};
+  getOptions(): OptionsMap<Configs> {
+    const options = {} as any;
 
     this.controls.forEach((control) => {
       options[control.name] = control.value;
@@ -197,7 +244,7 @@ export class Controls {
     });
 
     return options;
-  };
+  }
 
   randomize = () => {
     this.controls.forEach((control) => {
