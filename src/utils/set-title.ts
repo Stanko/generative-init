@@ -8,7 +8,7 @@ const getIcon = (color: string) => {
   canvas.height = 64;
   const context = canvas.getContext('2d') as CanvasRenderingContext2D;
   context.fillStyle = color;
-  context.roundRect(0, 0, 64, 64, 4);
+  context.roundRect(0, 0, 64, 64, 32);
   context.fill();
   return canvas.toDataURL();
 };
