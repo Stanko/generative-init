@@ -33,7 +33,7 @@ export const SCALE = 100;
 let clipper: MainModule;
 let promise: Promise<MainModule>;
 
-export async function init(): Promise<MainModule> {
+export async function initClipper(): Promise<MainModule> {
   // Return the existing instance if it exists
   if (clipper) {
     return clipper;
@@ -168,7 +168,7 @@ export const offset = (
   joinType: JoinTypeString = 'round',
   endType: EndTypeString = 'round',
   miterLimit: number = 2,
-  arcTolerance: number = 0
+  arcTolerance: number = 0,
 ): Point[][] => {
   const { InflatePaths64, JoinType: JoinTypeValue, EndType: EndTypeValue } = clipper;
 
@@ -197,7 +197,7 @@ export const offset = (
     joinTypeMap[joinType],
     endTypeMap[endType],
     miterLimit * SCALE,
-    arcTolerance * SCALE
+    arcTolerance * SCALE,
   );
 
   return fromPaths64(offsetPaths);

@@ -1,5 +1,5 @@
 import type { MainModule } from 'clipper2-wasm/dist/clipper2z';
-import { init, union, xor, difference, intersection, type Point, offset } from './clipper';
+import { initClipper, union, xor, difference, intersection, type Point, offset } from './clipper';
 import { describe, it, expect, beforeAll } from 'vitest';
 
 const A: Point[][] = [
@@ -47,7 +47,7 @@ describe('clipper2 utils', () => {
   let clipper: MainModule;
 
   beforeAll(async () => {
-    clipper = await init();
+    clipper = await initClipper();
   });
 
   it('should return a clipper2 instance', () => {

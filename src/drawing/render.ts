@@ -1,61 +1,36 @@
 import getDrawingData from './index';
-import setMainSeed from '../utils/set-main-seed';
-import svg from '../utils/svg';
-import type { controls } from '..';
+import svgUtils from '../utils/svg-utils';
+import { type Options } from '..';
 
-let timer;
+export default async function render(options: Options): Promise<SVGElement> {
+  const { width, height } = options;
 
-export default async function render(options: ReturnType<typeof controls.getOptions>) {
-  const { width, height, mainSeed } = options;
-
-  // Swap Math.random for a seeded rng
-  setMainSeed(mainSeed);
-
-  // --------- Main logic
-  const data = await getDrawingData(options);
-
-  // --------- Render
-
+  // ----- SVG init ----- //
   const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
-  console.time((timer = 'svg render'));
-  let svgContent = '';
+  // ----- Main logic ----- //
+  // TODO add default memoization for "getDrawingData"
+  console.time('drawing data');
+  const data = await getDrawingData(options);
+  console.timeEnd('drawing data');
 
-  // data.circles.forEach((circle) => {
-  //   svgContent += svg.circle(circle, circle.r, {
-  //     fill: 'none',
-  //     stroke: 'black',
-  //   });
-  // });
+  // ----- Render ----- //
+  console.time('svg render');
+  // Add current URL with parameters into the SVG
+  let svgContent = `\n<!-- ${window.location.href} -->\n`;
 
-  // svgContent += svg.circle(data.asyncCircle, data.asyncCircle.r, {
-  //   fill: 'none',
-  //   stroke: 'black',
-  // });
-
-  const colors = ['blue', 'red'];
-  data.polygons.forEach((polygon, i) => {
-    svgContent += svg.complexPath(polygon, true, {
-      fill: 'none',
-      stroke: colors[i % colors.length],
-    });
-  });
-
-  svgContent += svg.complexPath(data.unionTest, true, {
-    fill: 'rgb(0 0 255 / 0.3)',
-    stroke: 'black',
-    'stroke-width': 5,
-  });
-
-  svgContent += svg.complexPath(data.offsetTest, true, {
-    fill: 'rgb(255 0 0 / 0.1)',
-    stroke: 'black',
-    'stroke-width': 1,
-  });
+  svgContent += data.circles
+    .map((circle) => {
+      return svgUtils.getCircle(circle, circle.r, {
+        fill: 'none',
+        stroke: 'black',
+      });
+    })
+    .join('\n');
 
   svgElement.innerHTML = svgContent;
-  console.timeEnd(timer);
+  console.timeEnd('svg render');
 
-  document.querySelector('.drawing').replaceChildren(svgElement);
+  return svgElement;
 }

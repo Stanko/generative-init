@@ -25,7 +25,6 @@ export class EasingControl implements Control<Easing> {
   name: string;
   label: string;
   value: Easing;
-  easing: ReturnType<typeof BezierEasing>;
   isRandomizationDisabled: boolean;
   onChange: ControlChangeHandler<Easing>;
   element: HTMLElement;
@@ -39,7 +38,6 @@ export class EasingControl implements Control<Easing> {
     this.name = config.name;
     this.label = config.label || config.name;
     this.value = config.defaultValue === undefined ? this.getDefaultValue() : config.defaultValue;
-    this.easing = BezierEasing(...this.value);
     this.isRandomizationDisabled = config.isRandomizationDisabled || false;
     this.onChange = onChange;
 
@@ -352,7 +350,6 @@ export class EasingControl implements Control<Easing> {
 
   update = (value: Easing = this.value) => {
     this.value = value;
-    this.easing = BezierEasing(...this.value);
 
     this.updateUI();
 

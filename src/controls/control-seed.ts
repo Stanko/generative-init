@@ -1,6 +1,5 @@
 import generateSeed from '../utils/generate-seed';
 import { createElement, RefreshCw } from 'lucide';
-import seedrandom, { type PRNG } from 'seedrandom';
 
 import type { Control, ControlChangeHandler, ControlConfig, ControlType } from './controls';
 
@@ -9,7 +8,6 @@ export class SeedControl implements Control<string> {
   name: string;
   label: string;
   value: string;
-  rng: PRNG;
   isRandomizationDisabled: boolean;
   onChange: ControlChangeHandler<string>;
   element: HTMLElement;
@@ -19,7 +17,6 @@ export class SeedControl implements Control<string> {
     this.name = config.name;
     this.label = config.label || config.name;
     this.value = config.defaultValue === undefined ? this.getDefaultValue() : config.defaultValue;
-    this.rng = seedrandom(this.value);
     this.isRandomizationDisabled = config.isRandomizationDisabled || false;
     this.onChange = onChange;
 
@@ -65,7 +62,7 @@ export class SeedControl implements Control<string> {
 
     const reload = document.createElement('button');
     reload.append(createElement(RefreshCw));
-    reload.classList.add('seed-new-button');
+    reload.classList.add('seed-new-button', 'controls-btn');
     reload.addEventListener('click', () => {
       this.value = this.getRandomValue();
       this.update();
@@ -95,7 +92,6 @@ export class SeedControl implements Control<string> {
 
   update = (value: string = this.value) => {
     this.value = value;
-    this.rng = seedrandom(this.value);
 
     this.input.value = value;
   };

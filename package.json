@@ -1,6 +1,5 @@
 {
-  "name": "generative-init",
-  "private": true,
+  "name": "@stanko/generative-init",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

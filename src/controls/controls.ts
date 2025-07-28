@@ -1,4 +1,4 @@
-import type BezierEasing from 'bezier-easing';
+import BezierEasing from 'bezier-easing';
 import type { PRNG } from 'seedrandom';
 import { toCamelCase, toKebabCase, toSpaceCase } from '../utils/string-utils';
 import { BooleanControl } from './control-boolean';
@@ -8,6 +8,7 @@ import { RadioControl } from './control-radio';
 import { RangeControl } from './control-range';
 import { SeedControl } from './control-seed';
 import { createElement, Dice5 } from 'lucide';
+import seedrandom from 'seedrandom';
 
 export type ControlType = 'boolean' | 'range' | 'radio' | 'seed' | 'easing' | 'dual-range';
 
@@ -89,15 +90,17 @@ interface ControlTypeRegistry {
   };
 }
 
-type TypedControlConfig = ControlTypeRegistry[keyof ControlTypeRegistry]['config'];
+export type TypedControlConfig = ControlTypeRegistry[keyof ControlTypeRegistry]['config'];
 
 type OptionsMap<Configs extends readonly TypedControlConfig[]> =
   // Base mapping: control name → value
   {
     [C in Configs[number] as C['name']]: ControlTypeRegistry[C['type']]['value'];
-  } & { // Extra mapping: easing → nameEasing
+  } & {
+    // Extra mapping: easing → nameEasing
     [C in Extract<Configs[number], { type: 'easing' }> as `${C['name']}Easing`]: ReturnType<typeof BezierEasing>;
-  } & { // Extra mapping: seed → nameRng
+  } & {
+    // Extra mapping: seed → nameRng
     [C in Extract<Configs[number], { type: 'seed' }> as `${C['name']}Rng`]: PRNG;
   };
 
@@ -151,7 +154,7 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
     });
 
     const randomizeButton = document.createElement('button');
-    randomizeButton.classList.add('controls-randomize');
+    randomizeButton.classList.add('controls-randomize', 'controls-btn');
     randomizeButton.textContent = 'Randomize';
     randomizeButton.appendChild(createElement(Dice5));
     randomizeButton.addEventListener('click', this.randomize);
@@ -170,14 +173,18 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
     this.setHash();
   };
 
-  setHash = () => {
+  getHash = () => {
     const values = this.controls
       .map((control) => {
         return `${toKebabCase(control.name)}:${control.valueToString()}`;
       })
       .join('/');
 
-    window.location.hash = `#/${values}`;
+    return `#/${values}`;
+  };
+
+  setHash = () => {
+    window.location.hash = this.getHash();
   };
 
   // TODO
@@ -237,9 +244,9 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
       options[control.name] = control.value;
 
       if (control.type === 'easing') {
-        options[control.name + 'Easing'] = (control as EasingControl).easing;
+        options[control.name + 'Easing'] = BezierEasing(...(control as EasingControl).value);
       } else if (control.type === 'seed') {
-        options[control.name + 'Rng'] = (control as SeedControl).rng;
+        options[control.name + 'Rng'] = seedrandom((control as SeedControl).value);
       }
     });
 

@@ -1,120 +1,76 @@
 import '@stanko/dual-range-input/dist/index.css';
+import { createElement, ImageDown } from 'lucide';
+import { Controls } from './controls/controls';
+import { config } from './drawing/options-config';
 import render from './drawing/render';
-// import setTitle from './utils/set-title';
+import { downloadSVG } from './utils/download-svg';
+import setTitle from './utils/set-title';
 
 import './scss/index.scss';
 
-// import knobs from './knobs';
+// Backup reference to the browser's Math.random method
+export const originalRandom = Math.random;
 
-// function main(options) {
-//   setTitle(options, 'INIT');
-//   console.log(options);
+// Initialize options controls
+export const controls = new Controls(config);
 
-//   render(options);
-// }
+export type Options = ReturnType<typeof controls.getOptions>;
 
-// // Reset template
-// document.querySelector('.app').innerHTML = `
-// <div class="sketch"></div>
-// <div class="knobs"></div>
-// `;
+// Get title from the HTML
+const title = document.querySelector('title')?.textContent || '';
 
-// knobs(main);
-
-import { Controls } from './controls/controls.ts';
-
-export const controls = new Controls([
-  {
-    type: 'boolean',
-    name: 'debug',
-    defaultValue: true,
-    isRandomizationDisabled: true,
-  },
-  {
-    type: 'seed',
-    name: 'mainSeed',
-  },
-  {
-    type: 'range',
-    name: 'width',
-    defaultValue: 420,
-    isRandomizationDisabled: true,
-    options: {
-      min: 50,
-      max: 1000,
-      step: 1,
-    },
-  },
-  {
-    type: 'range',
-    name: 'height',
-    defaultValue: 297,
-    isRandomizationDisabled: true,
-    options: {
-      min: 50,
-      max: 1000,
-      step: 1,
-    },
-  },
-  {
-    type: 'dual-range',
-    name: 'minMax',
-    defaultValue: {
-      min: 20,
-      max: 80,
-    },
-    options: {
-      min: 0,
-      max: 100,
-      step: 1,
-    },
-  },
-  {
-    type: 'radio',
-    name: 'shape',
-    defaultValue: 0,
-    options: {
-      items: [
-        {
-          label: 'rect',
-          value: 'rect',
-        },
-        {
-          label: 'circle',
-          value: 'circle',
-        },
-        {
-          label: 'triangle',
-          value: 'triangle',
-        },
-      ],
-    },
-  },
-  {
-    type: 'easing',
-    name: 'easing',
-  },
-] as const);
-
+// UI elements
 const controlsDiv = document.querySelector('.controls') as HTMLDivElement;
-// const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
+const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
 
-controls.addToContainer(controlsDiv);
+const buildUI = () => {
+  controls.addToContainer(controlsDiv);
 
-document.addEventListener('keypress', (e: KeyboardEvent) => {
-  if (document.activeElement === document.body) {
-    e.preventDefault();
+  // TODO
+  // It would be nice to add a way to add elements to the controls div
+  // and even group them together in one element with the randomize button
+  const saveButton = document.createElement('button');
+  saveButton.classList.add('controls-save', 'controls-btn');
+  saveButton.textContent = 'Save';
+  saveButton.appendChild(createElement(ImageDown));
+  saveButton.addEventListener('click', () => {
+    const svg = drawingDiv.querySelector('svg') as SVGElement;
+    downloadSVG(svg, `drawing-${window.location.hash.replace('#/', '').replace(/(\/|,)/g, '_')}.svg`);
+  });
+  controlsDiv.appendChild(saveButton);
 
-    if (e.key === 's') {
-      document.body.classList.toggle('hide-controls');
-    } else if (e.key === 'r') {
-      controls.randomize();
+  // Add global keyboard shortcuts
+  document.addEventListener('keypress', (e: KeyboardEvent) => {
+    if (document.activeElement === document.body) {
+      e.preventDefault();
+
+      if (e.key === 's') {
+        document.body.classList.toggle('hide-controls');
+      } else if (e.key === 'r') {
+        controls.randomize();
+      }
     }
-  }
-});
+  });
+};
 
-controls.onChange = () => {
+const draw = async () => {
   const options = controls.getOptions();
 
-  render(options);
+  // Swap random method for a seeded RNG
+  Math.random = options.mainSeedRng;
+
+  // Set unique favicon and title
+  setTitle(options, title);
+
+  // Render the image
+  const svg = await render(options);
+
+  drawingDiv.replaceChildren(svg);
 };
+
+// Redraw on options change
+controls.onChange = draw;
+
+// Initialize
+buildUI();
+draw();
