@@ -1,52 +1,58 @@
 import random from '../utils/random';
 import memoize from '../utils/memoize';
-import { getClipperInstance } from '../utils/clipper';
-
-// Global instance on js-angusj-clipper
-let clipper;
-
-const getCircles = memoize((mainSeed, width, height, easing) => {
-  const circles = [];
-  const step = 1 / 100;
-
-  for (let i = 0; i <= 1; i += step) {
-    const t = easing(i);
-
-    circles.push({
-      x: t * width,
-      y: height * 0.5,
-      r: 2,
-    });
-  }
-
-  return circles;
-});
-
-const getAsyncCircle = memoize((mainSeed, width, height) => {
-  return new Promise((resolve, reject) => {
-    const circle = {
-      x: random(width * 0.1, width * 0.9, null, 0),
-      y: random(height * 0.1, height * 0.9, null, 0),
-      r: 30,
-    };
-
-    setTimeout(() => {
-      resolve(circle);
-    }, 100);
-  });
-});
+import { difference, init, intersection, offset, union, xor } from '../utils/clipper';
 
 export default async function getDrawingData(options) {
   const { width, height, mainSeed, easing, easingFn } = options;
 
-  clipper = getClipperInstance();
+  // Init clipper
+  await init();
 
   // --------- Main logic
-  const circles = getCircles(mainSeed, width, height, easingFn);
-  const asyncCircle = await getAsyncCircle(mainSeed, width, height);
+  const A = [
+    { x: 100, y: 0 },
+    { x: 200, y: 100 },
+    { x: 100, y: 300 },
+    { x: 0, y: 100 },
+  ];
+
+  const A1 = [
+    A,
+    [
+      { x: 100, y: 20 },
+      { x: 180, y: 100 },
+      { x: 100, y: 260 },
+      { x: 20, y: 100 },
+    ].reverse(),
+  ];
+
+  const B = [
+    { x: 150, y: 0 },
+    { x: 350, y: 100 },
+    { x: 150, y: 200 },
+    { x: 50, y: 100 },
+  ];
+
+  const B1 = [
+    B,
+    [
+      { x: 150, y: 20 },
+      { x: 310, y: 100 },
+      { x: 150, y: 180 },
+      { x: 70, y: 100 },
+    ],
+  ];
+
+  const C = B.map((p) => {
+    return {
+      x: p.x + 20,
+      y: p.y + 120,
+    };
+  });
 
   return {
-    circles,
-    asyncCircle,
+    polygons: [A1, B1, [C]],
+    unionTest: difference([A1, B1, [C]]),
+    offsetTest: offset(A1, 5, 'square', 'polygon'),
   };
 }

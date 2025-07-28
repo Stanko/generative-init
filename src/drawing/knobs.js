@@ -33,6 +33,10 @@ const KNOBS = [
     name: 'easing',
     type: knobTypes.EASING,
   },
+  {
+    name: 'oneMoreKnob',
+    type: knobTypes.EASING,
+  },
 ];
 
 export default KNOBS;

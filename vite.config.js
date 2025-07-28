@@ -3,6 +3,8 @@
 export default {
   server: {
     port: 1234,
+    host: true,
+    allowedHosts: true,
   },
   css: {
     preprocessorOptions: {
@@ -11,5 +13,4 @@ export default {
       },
     },
   },
-  root: './src',
 };

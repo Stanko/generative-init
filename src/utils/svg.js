@@ -1,5 +1,5 @@
 function create(options) {
-  const wrapper = document.querySelector('.sketch');
+  const wrapper = document.querySelector('.drawing');
   let svg = document.querySelector('.svg');
 
   // Create SVG element
@@ -9,8 +9,8 @@ function create(options) {
   }
 
   svg.setAttribute('viewBox', `0 0 ${options.width} ${options.height}`);
-  svg.setAttribute('width', options.width);
-  svg.setAttribute('height', options.height);
+  // svg.setAttribute('width', options.width);
+  // svg.setAttribute('height', options.height);
 
   return svg;
 }
@@ -19,6 +19,27 @@ function path(path, isClosed = true, props = {}) {
   const points = path.map((p) => `${p.x} ${p.y}`).join(' L ');
 
   const d = `M ${points} ${isClosed ? 'Z' : ''}`;
+  const attributes = [];
+
+  for (const key in props) {
+    const value = props[key];
+    attributes.push(`${key}="${value}"`);
+  }
+
+  return `<path d="${d}" ${attributes.join(' ')} />`;
+}
+
+function complexPath(paths, isClosed = true, props = {}) {
+  const d = paths
+    .map((path) => {
+      const points = path.map((p) => `${p.x} ${p.y}`).join(' L ');
+
+      const d = `M ${points} ${isClosed ? 'Z' : ''}`;
+
+      return d;
+    })
+    .join(' ');
+
   const attributes = [];
 
   for (const key in props) {
@@ -44,6 +65,7 @@ const svg = {
   create,
   circle,
   path,
+  complexPath,
 };
 
 export default svg;

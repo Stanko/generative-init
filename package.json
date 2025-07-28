@@ -1,33 +1,31 @@
 {
   "name": "generative-init",
-  "version": "1.0.0",
-  "description": "",
-  "source": "src/index.html",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Stanko/generative-init.git"
-  },
-  "author": "Stanko",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Stanko/generative-init/issues"
-  },
-  "homepage": "https://github.com/Stanko/generative-init#readme",
-  "dependencies": {
-    "bezier-easing": "^2.1.0",
-    "js-angusj-clipper": "^1.3.1",
-    "mem": "^10.0.0",
-    "random-words": "^2.0.1",
-    "sass": "^1.89.2",
-    "seedrandom": "^3.0.5"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:browser": "vitest --config=vitest.browser.config.ts"
   },
   "devDependencies": {
-    "vite": "^7.0.0"
+    "@vitest/browser": "^3.2.4",
+    "playwright": "^1.53.1",
+    "sass": "^1.89.2",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@stanko/dual-range-input": "^1.0.1",
+    "@types/seedrandom": "^3.0.8",
+    "bezier-easing": "^2.1.0",
+    "clipper2-wasm": "^0.2.1",
+    "lucide": "^0.525.0",
+    "mem": "^9.0.2",
+    "random-words": "^2.0.1",
+    "seedrandom": "^3.0.5"
   }
 }
