@@ -19,8 +19,11 @@ This is a boilerplate I use to start all of [my generative projects](https://muf
 - Clipper2ZFactory helpers
 - Couple of small touches - for example, each set of options will have their own title and favicon
 
-## Planned features
+## TODO
 
+- Remove google fonts
+- Fix sizing of the SVG
+- Make controls sticky/fixed on desktop
 - Vector utils (`Vec2` and `Vec3`)
 - Display values for range and dual-range
 - Move `Controls` to a separate package
