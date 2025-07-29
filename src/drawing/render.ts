@@ -1,6 +1,6 @@
 import getDrawingData from './index';
 import svgUtils from '../utils/svg-utils';
-import { type Options } from '..';
+import type { Options } from '../utils/options-type';
 
 export default async function render(options: Options): Promise<SVGElement> {
   const { width, height } = options;

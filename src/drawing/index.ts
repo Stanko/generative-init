@@ -1,6 +1,6 @@
 import random from '../utils/random';
 import memoize from '../utils/memoize';
-import type { Options } from '..';
+import type { Options } from '../utils/options-type';
 // import { initClipper } from '../utils/clipper';
 
 // TODO fix up types for memoize

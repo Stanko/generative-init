@@ -1,4 +1,3 @@
-import '@stanko/dual-range-input/dist/index.css';
 import { createElement, ImageDown } from 'lucide';
 import { Controls } from './controls/controls';
 import { config } from './drawing/options-config';
@@ -6,6 +5,7 @@ import render from './drawing/render';
 import { downloadSVG } from './utils/download-svg';
 import setTitle from './utils/set-title';
 
+import '@stanko/dual-range-input/dist/index.css';
 import './scss/index.scss';
 
 // Backup reference to the browser's Math.random method
@@ -13,8 +13,6 @@ export const originalRandom = Math.random;
 
 // Initialize options controls
 export const controls = new Controls(config);
-
-export type Options = ReturnType<typeof controls.getOptions>;
 
 // Get title from the HTML
 const title = document.querySelector('title')?.textContent || '';
