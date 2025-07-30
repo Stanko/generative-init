@@ -1,8 +1,8 @@
 @use 'breakpoints';
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
 .controls {
-  --controls-font: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  --controls-font:
+    'Inconsolata', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 
   --controls-main-l: 0.63;
   --controls-main-c: 0.2;
@@ -54,7 +54,6 @@
   scrollbar-width: thin;
   scrollbar-color: var(--controls-gray-400) transparent;
 
-  font-family: 'Inconsolata', monospace;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
