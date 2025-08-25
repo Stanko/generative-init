@@ -34,6 +34,17 @@ export const config = [
     },
   },
   {
+    type: 'radio',
+    name: 'shape',
+    options: {
+      items: [
+        { label: 'circle', value: 'circle' },
+        { label: 'square', value: 'square' },
+        { label: 'triangle', value: 'triangle' },
+      ],
+    },
+  },
+  {
     type: 'easing',
     name: 'distribution',
   },

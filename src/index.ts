@@ -1,4 +1,4 @@
-import { createElement, ImageDown } from 'lucide';
+import { createElement, Download } from 'lucide';
 import { Controls } from './controls/controls';
 import { config } from './drawing/options-config';
 import render from './drawing/render';
@@ -30,7 +30,7 @@ const buildUI = () => {
   const saveButton = document.createElement('button');
   saveButton.classList.add('controls-save', 'controls-btn');
   saveButton.textContent = 'Save';
-  saveButton.appendChild(createElement(ImageDown));
+  saveButton.appendChild(createElement(Download));
   saveButton.addEventListener('click', () => {
     const svg = drawingDiv.querySelector('svg') as SVGElement;
     downloadSVG(svg, `drawing-${window.location.hash.replace('#/', '').replace(/(\/|,)/g, '_')}.svg`);

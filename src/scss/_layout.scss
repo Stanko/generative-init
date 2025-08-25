@@ -8,9 +8,11 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+  padding: 1rem;
 
   @include breakpoints.lg {
     flex-direction: row;
+    gap: 1rem;
   }
 }
 
@@ -25,14 +27,15 @@ body {
 .drawing {
   width: 100%;
   flex-grow: 1;
-  padding: 2rem;
-
   max-height: 80vh;
   max-height: 80svh;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 1rem;
 
   @include breakpoints.lg {
-    max-height: 100vh;
-    max-height: 100svh;
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100svh - 2rem);
   }
 }
 
@@ -40,7 +43,8 @@ body {
   background: white;
   margin: 0 auto;
   max-width: 100%;
-  box-shadow: 0 0 8px rgb(0 0 0 / 0.1);
+  border: 1px solid rgb(0 0 0 / 0.05);
+  border-radius: 8px;
 }
 
 .hide-controls .controls {

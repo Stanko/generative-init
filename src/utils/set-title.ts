@@ -30,6 +30,9 @@ const setTitle = (options: Options, title = '') => {
 
   const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
 
+  const controlsElement = document.querySelector('.controls') as HTMLElement;
+  controlsElement.style.setProperty('--ctrls-h', h);
+
   iconElement.setAttribute('href', icon);
 
   document.title = title + options.mainSeed;
