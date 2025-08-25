@@ -288,10 +288,14 @@ export class EasingControl implements Control<Easing> {
       ticks.appendChild(tick);
     }
 
+    const controlWrapper = document.createElement('div');
+    controlWrapper.classList.add('easing-wrapper');
+    controlWrapper.appendChild(ticks);
+    controlWrapper.appendChild(control);
+
     const right = document.createElement('div');
     right.classList.add('control-right');
-    right.appendChild(ticks);
-    right.appendChild(control);
+    right.appendChild(controlWrapper);
     right.appendChild(predefinedButtons);
 
     const label = document.createElement('span');

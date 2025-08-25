@@ -1,7 +1,6 @@
 @use 'breakpoints';
 
 body {
-  background: #232426;
   background: #f7f8f9;
 }
 
@@ -13,13 +12,13 @@ body {
   --ctrls-radius: 4px;
 
   // Theme colors
-  --ctrls-l: 0.7;
   --ctrls-c: 0.7;
   --ctrls-h: 220;
 
   --ctrls-theme: oklch(0.6 var(--ctrls-c) var(--ctrls-h));
-
   --ctrls-theme-oklch: 0.6 var(--ctrls-c) var(--ctrls-h);
+
+  --ctrls-theme-light: oklch(0.8 var(--ctrls-c) var(--ctrls-h));
 
   // Grays
   --ctrls-gray-50: #f1f1f1;
@@ -33,16 +32,16 @@ body {
   --ctrls-scrollbar-thumb-bg: var(--ctrls-gray-400);
 
   // Backgrounds and text
-  --ctrls-bg: oklch(0.99 0.005 var(--ctrls-h) / 0.4);
+  --ctrls-bg: oklch(0.99 0.005 var(--ctrls-h) / 0.6);
   --ctrls-text: oklch(0.01 0.3 var(--ctrls-h)); // text
   --ctrls-text-muted: oklch(0.5 0.005 var(--ctrls-h));
 
   // Borders
-  --ctrls-border: oklch(0.9 0.01 var(--ctrls-h) / 0.5);
+  --ctrls-border: oklch(0.925 0.01 var(--ctrls-h));
+  --ctrls-input-border: oklch(0.925 0.01 var(--ctrls-h));
 
   // Input wrapper
   --ctrls-input-wrapper-bg: white; // oklch(0.95 0.001 var(--ctrls-h));
-  --ctrls-border: oklch(0.85 0.01 var(--ctrls-h) / 0.5);
 
   // Buttons
   --ctrls-btn-bg: white;
@@ -62,6 +61,7 @@ body {
   --ctrls-range-active-bg: var(--ctrls-theme);
 
   --ctrls-thumb-bg: var(--ctrls-gray-100);
+  --ctrls-thumb-border: var(--ctrls-gray-200);
 
   --ctrls-thumb-hover-bg: var(--ctrls-gray-200);
   --ctrls-thumb-hover-border: var(--ctrls-gray-300);
@@ -83,6 +83,52 @@ body {
 
   --ctrls-easing-handle-bg: var(--ctrls-gray-50);
   --ctrls-easing-handle-border: var(--ctrls-gray-300);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #202125;
+  }
+
+  .controls {
+    // Theme colors
+    --ctrls-c: 0.3;
+
+    --ctrls-theme-oklch: 0.6 var(--ctrls-c) var(--ctrls-h);
+    --ctrls-theme: oklch(0.6 var(--ctrls-c) var(--ctrls-h));
+
+    // Grays
+    --ctrls-gray-50: #e1e1e1;
+    --ctrls-gray-100: #d3d3d3;
+    --ctrls-gray-200: #b7b7b7;
+    --ctrls-gray-300: #9c9c9c;
+    --ctrls-gray-400: #828282;
+    --ctrls-gray-500: #686868;
+
+    // Scrollbar
+    --ctrls-scrollbar-thumb-bg: #5f5f5f;
+
+    // Backgrounds and text
+    --ctrls-bg: oklch(0.27 0.003 var(--ctrls-h) / 0.9);
+    --ctrls-text: oklch(0.95 0.005 var(--ctrls-h)); // text
+    --ctrls-text-muted: oklch(0.7 0.005 var(--ctrls-h));
+
+    // Borders
+    --ctrls-border: oklch(0.35 0.01 var(--ctrls-h));
+    --ctrls-input-border: transparent;
+
+    // Input wrapper
+    --ctrls-input-wrapper-bg: oklch(0.2 0.001 var(--ctrls-h));
+
+    // Buttons
+    --ctrls-btn-bg: oklch(0.2 0.001 var(--ctrls-h));
+
+    --ctrls-btn-hover-bg: oklch(0.1 0.001 var(--ctrls-h));
+    --ctrls-btn-hover-text: var(--ctrls-theme-light);
+
+    // Text input
+    --ctrls-input-bg: var(--ctrls-input-wrapper-bg);
+  }
 }
 
 .controls {
@@ -159,7 +205,7 @@ body {
 .controls-save {
   padding: 0.5rem 1rem;
   background: var(--ctrls-btn-bg);
-  border: 1px solid var(--ctrls-border);
+  border: 1px solid var(--ctrls-input-border);
   font-weight: 700;
 
   &:focus-visible,
@@ -226,10 +272,9 @@ body {
 }
 
 .control--range,
-.control--dual-range,
-.control--easing {
+.control--dual-range {
   .control-right {
-    border: 1px solid var(--ctrls-border);
+    border: 1px solid var(--ctrls-input-border);
     background: var(--ctrls-input-wrapper-bg);
     border-radius: var(--ctrls-radius);
   }
@@ -256,7 +301,7 @@ body {
   color: transparent;
   background: var(--ctrls-checkbox-bg);
   border-radius: var(--ctrls-radius);
-  border: 1px solid var(--ctrls-border);
+  border: 1px solid var(--ctrls-input-border);
   display: grid;
   place-items: center;
 
@@ -337,21 +382,11 @@ label:hover .boolean-input:not(:checked) + .boolean-checkmark {
   appearance: none;
   background-color: var(--ctrls-thumb-bg);
   border-radius: var(--ctrls-radius);
-  border: 1px solid var(--ctrls-border);
+  border: 1px solid var(--ctrls-thumb-border);
   box-shadow: none;
   box-sizing: border-box;
   height: 1rem;
   width: 1.25rem;
-
-  &:hover {
-    background-color: var(--ctrls-thumb-hover-bg);
-    border-color: var(--ctrls-thumb-hover-border);
-  }
-
-  &:active {
-    background-color: var(--ctrls-thumb-active-bg);
-    border-color: transparent;
-  }
 }
 
 // Selectors for Firefox and Webkit can't be combined
@@ -375,6 +410,11 @@ label:hover .boolean-input:not(:checked) + .boolean-checkmark {
 .range-input:hover::-moz-range-thumb {
   background-color: var(--ctrls-thumb-hover-bg);
   border-color: var(--ctrls-thumb-hover-border);
+}
+
+.range-input:active::-moz-range-thumb {
+  background-color: var(--ctrls-thumb-active-bg);
+  border-color: transparent;
 }
 
 // ----- Webkit ----- //
@@ -420,7 +460,7 @@ input::-webkit-slider-thumb {
   --dri-thumb-hover-color: var(--ctrls-thumb-hover-bg);
   --dri-thumb-active-color: var(--ctrls-thumb-active-bg);
 
-  --dri-thumb-border-color: var(--ctrls-border);
+  --dri-thumb-border-color: var(--ctrls-thumb-border);
   --dri-thumb-border-hover-color: var(--ctrls-thumb-hover-border);
   --dri-thumb-border-active-color: transparent;
 
@@ -449,7 +489,7 @@ input::-webkit-slider-thumb {
     color 250ms,
     background-color 250ms;
   border-radius: var(--ctrls-radius);
-  border: 1px solid var(--ctrls-border);
+  border: 1px solid var(--ctrls-input-border);
   background: var(--ctrls-btn-bg);
 
   &:focus-visible,
@@ -468,6 +508,7 @@ input::-webkit-slider-thumb {
 .radio-label:has(input:checked) {
   background: var(--ctrls-btn-selected-bg);
   color: var(--ctrls-btn-selected-text);
+  border-color: transparent;
 }
 
 .radio-label:has(input:focus-visible) {
@@ -484,7 +525,7 @@ input::-webkit-slider-thumb {
 
 .seed-input {
   background-color: var(--ctrls-input-bg);
-  border: 1px solid var(--ctrls-border);
+  border: 1px solid var(--ctrls-input-border);
   padding: 0 0.5rem;
   height: 1.75rem;
   border-radius: var(--ctrls-radius);
@@ -511,13 +552,17 @@ input::-webkit-slider-thumb {
 
 /* ----- Easing -----  */
 
-.control--easing .control-right {
+.easing-wrapper {
   padding: 0.5rem;
+  border: 1px solid var(--ctrls-input-border);
+  background: var(--ctrls-input-wrapper-bg);
+  border-radius: var(--ctrls-radius);
+  margin-bottom: 0.25rem;
 }
 
 .easing {
   position: relative;
-  margin-block: 0.5rem;
+  margin-top: 0.5rem;
 
   path,
   line {
@@ -564,7 +609,7 @@ input::-webkit-slider-thumb {
   display: grid;
   align-content: center;
   text-align: center;
-  border: 1px solid var(--ctrls-border);
+  border: 1px solid var(--ctrls-input-border);
   border-radius: var(--ctrls-radius);
   background: var(--ctrls-btn-bg);
   padding: 0.25rem;
