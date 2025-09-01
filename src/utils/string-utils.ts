@@ -3,7 +3,7 @@ export const toKebabCase = (str: string): string => {
 };
 
 export const toCamelCase = (str: string): string => {
-  return str.replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace('-', '').replace('_', ''));
+  return str.replace(/([-_ ][a-z])/g, (group) => group.toUpperCase().replace(/[-_ ]/, ''));
 };
 
 export const toSpaceCase = (str: string): string => {

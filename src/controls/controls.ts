@@ -1,5 +1,7 @@
 import BezierEasing from 'bezier-easing';
 import type { PRNG } from 'seedrandom';
+import seedrandom from 'seedrandom';
+import { createElement, Dice5 } from 'lucide';
 import { toCamelCase, toKebabCase, toSpaceCase } from '../utils/string-utils';
 import { BooleanControl } from './control-boolean';
 import { DualRangeControl, type DualRangeValue } from './control-dual-range';
@@ -7,21 +9,18 @@ import { EasingControl } from './control-easing';
 import { RadioControl } from './control-radio';
 import { RangeControl } from './control-range';
 import { SeedControl } from './control-seed';
-import { createElement, Dice5 } from 'lucide';
-import seedrandom from 'seedrandom';
 
 export type ControlType = 'boolean' | 'range' | 'radio' | 'seed' | 'easing' | 'dual-range';
 
 export type ControlChangeHandler<T> = (name: string, value: T) => void;
 
-export type ControlConfig<T = unknown, O = unknown> = {
+export type ControlConfig<T = unknown> = {
   type: ControlType;
   name: string;
   label?: string;
   defaultValue?: T;
   isRandomizationDisabled?: boolean;
   onChange?: ControlChangeHandler<T>;
-  options?: O;
 };
 
 export interface Control<T> {
@@ -57,19 +56,25 @@ const controlMap: Record<ControlType, ControlConstructor<ControlComponent>> = {
   'dual-range': DualRangeControl,
 };
 
-interface ControlTypeRegistry {
+export interface ControlTypeRegistry {
   boolean: {
     config: ControlConfig<boolean>;
     instance: BooleanControl;
     value: boolean;
   };
   range: {
-    config: ControlConfig<number>;
+    config: ControlConfig<number> & {
+      min: number;
+      max: number;
+      step?: number;
+    };
     instance: RangeControl;
     value: number;
   };
   radio: {
-    config: ControlConfig<string>;
+    config: ControlConfig<string> & {
+      items: Record<string, string>;
+    };
     instance: RadioControl;
     value: string;
   };
@@ -84,7 +89,11 @@ interface ControlTypeRegistry {
     value: string;
   };
   'dual-range': {
-    config: ControlConfig<DualRangeValue>;
+    config: ControlConfig<DualRangeValue> & {
+      min: number;
+      max: number;
+      step?: number;
+    };
     instance: DualRangeControl;
     value: DualRangeValue;
   };
@@ -148,6 +157,7 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
     this.addListeners();
   }
 
+  // TODO update to use it's own element and expose it to the user
   addToContainer = (container: HTMLElement) => {
     const randomizeButton = document.createElement('button');
     randomizeButton.classList.add('controls-randomize', 'controls-btn');
@@ -187,16 +197,7 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
     window.location.hash = this.getHash();
   };
 
-  // TODO
-  //
-  // I separated parseHash from updateFromHash with an idea to use it to
-  // set values in the constuctor, before the UI is built.
-  // But because parseHash depends on the controlsMap which is not yet initialized,
-  // I decided to just call updateFromHash after the controlsMap is initialized.
-  //
-  // I'll leave parseHash and updateFromHash separated for now,
-  // but if it doesn't find it mandatory I'll merge them again for simplicity.
-  parseHash = (): HashItem[] => {
+  updateFromHash = () => {
     const hash = window.location.hash.slice(2); // Remove the leading '#/'
     const pairs = hash.split('/');
 
@@ -216,12 +217,6 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
         });
       }
     });
-
-    return items;
-  };
-
-  updateFromHash = () => {
-    const items = this.parseHash();
 
     console.log('update from hash', this.getOptions());
 

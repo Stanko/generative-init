@@ -1,6 +1,6 @@
 import random from '../utils/random';
 
-import type { Control, ControlChangeHandler, ControlConfig, ControlType } from './controls';
+import type { Control, ControlChangeHandler, ControlType, ControlTypeRegistry } from './controls';
 
 type Option = {
   label: string;
@@ -21,9 +21,14 @@ export class RadioControl implements Control<string> {
   items: Option[];
   element: HTMLElement;
 
-  constructor(config: ControlConfig<string>, onChange: ControlChangeHandler<string>) {
-    const options = config.options as RadioControlOptions;
-    this.items = options.items;
+  constructor(config: ControlTypeRegistry['radio']['config'], onChange: ControlChangeHandler<string>) {
+    this.items = [];
+    Object.keys(config.items).forEach((key) => {
+      this.items.push({
+        label: key,
+        value: config.items[key],
+      });
+    });
 
     this.name = config.name;
     this.label = config.label || config.name;

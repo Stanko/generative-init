@@ -18,9 +18,16 @@ body {
 
 .controls {
   margin-top: auto;
+  max-width: 100%;
+
+  @include breakpoints.md-only {
+    grid-template-columns: repeat(2, calc(50% - 0.25rem));
+  }
 
   @include breakpoints.lg {
+    align-self: flex-start;
     margin-top: 0;
+    max-width: 22rem;
   }
 }
 
@@ -43,7 +50,7 @@ body {
   background: white;
   margin: 0 auto;
   max-width: 100%;
-  border: 1px solid rgb(0 0 0 / 0.05);
+  border: 1px solid rgb(0 0 0 / 0.075);
   border-radius: 8px;
 }
 

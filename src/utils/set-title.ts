@@ -1,6 +1,6 @@
 import seedrandom from 'seedrandom';
-import type { Options } from '..';
 import random from './random';
+import type { Options } from './options-type';
 
 const getIcon = (color: string) => {
   const canvas = document.createElement('canvas');
@@ -30,6 +30,8 @@ const setTitle = (options: Options, title = '') => {
 
   const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
 
+  // Probably should be removed
+  // Testing colors for now
   const controlsElement = document.querySelector('.controls') as HTMLElement;
   controlsElement.style.setProperty('--ctrls-h', h);
 

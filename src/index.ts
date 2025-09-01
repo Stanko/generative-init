@@ -39,14 +39,20 @@ const buildUI = () => {
 
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
-    if (document.activeElement === document.body) {
-      e.preventDefault();
+    // Check if document.activeElement is not a text input
+    const active = document.activeElement;
+    const isTextInput = active instanceof HTMLInputElement && active.type === 'text';
 
-      if (e.key === 's') {
-        document.body.classList.toggle('hide-controls');
-      } else if (e.key === 'r') {
-        controls.randomize();
-      }
+    if (isTextInput) {
+      return;
+    }
+
+    if (e.key === 'c') {
+      e.preventDefault();
+      document.body.classList.toggle('hide-controls');
+    } else if (e.key === 'r') {
+      e.preventDefault();
+      controls.randomize();
     }
   });
 };

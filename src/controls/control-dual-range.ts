@@ -1,7 +1,7 @@
 import random from '../utils/random';
 import DualRangeInput from '@stanko/dual-range-input';
 
-import type { Control, ControlChangeHandler, ControlConfig, ControlType } from './controls';
+import type { Control, ControlChangeHandler, ControlType, ControlTypeRegistry } from './controls';
 
 export type DualRangeControlOptions = {
   min: number;
@@ -31,18 +31,16 @@ export class DualRangeControl implements Control<DualRangeValue> {
   maxInput: HTMLInputElement;
   dualRange: DualRangeInput;
 
-  constructor(config: ControlConfig<DualRangeValue>, onChange: ControlChangeHandler<DualRangeValue>) {
+  constructor(config: ControlTypeRegistry['dual-range']['config'], onChange: ControlChangeHandler<DualRangeValue>) {
     this.name = config.name;
     this.label = config.label || config.name;
     this.value = config.defaultValue === undefined ? this.getDefaultValue() : config.defaultValue;
     this.isRandomizationDisabled = config.isRandomizationDisabled || false;
     this.onChange = onChange;
 
-    const options = config.options as DualRangeControlOptions;
-
-    this.min = options.min;
-    this.max = options.max;
-    this.step = options.step || 1;
+    this.min = config.min;
+    this.max = config.max;
+    this.step = config.step || 1;
 
     const { minInput, maxInput, element } = this.buildUI();
     this.minInput = minInput;

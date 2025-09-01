@@ -1,12 +1,6 @@
 import random from '../utils/random';
 
-import type { Control, ControlChangeHandler, ControlConfig, ControlType } from './controls';
-
-export type RangeControlOptions = {
-  min: number;
-  max: number;
-  step?: number;
-};
+import type { Control, ControlChangeHandler, ControlType, ControlTypeRegistry } from './controls';
 
 // TODO
 // Add a span with the current value
@@ -23,18 +17,15 @@ export class RangeControl implements Control<number> {
   element: HTMLElement;
   input: HTMLInputElement;
 
-  constructor(config: ControlConfig<number>, onChange: ControlChangeHandler<number>) {
+  constructor(config: ControlTypeRegistry['range']['config'], onChange: ControlChangeHandler<number>) {
     this.name = config.name;
     this.label = config.label || config.name;
     this.value = config.defaultValue === undefined ? this.getDefaultValue() : config.defaultValue;
     this.isRandomizationDisabled = config.isRandomizationDisabled || false;
     this.onChange = onChange;
-
-    const options = config.options as RangeControlOptions;
-
-    this.min = options.min;
-    this.max = options.max;
-    this.step = options.step || 1;
+    this.min = config.min;
+    this.max = config.max;
+    this.step = config.step || 1;
 
     const { input, element } = this.buildUI();
     this.input = input;

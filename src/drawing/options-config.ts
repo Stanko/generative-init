@@ -14,34 +14,28 @@ export const config = [
   {
     type: 'range',
     name: 'width',
-    defaultValue: 420,
+    defaultValue: 420, // A3 width in mm
     isRandomizationDisabled: true,
-    options: {
-      min: 50,
-      max: 1000,
-      step: 1,
-    },
+    min: 50,
+    max: 1000,
+    step: 1,
   },
   {
     type: 'range',
     name: 'height',
-    defaultValue: 297,
+    defaultValue: 297, // A3 height in mm
     isRandomizationDisabled: true,
-    options: {
-      min: 50,
-      max: 1000,
-      step: 1,
-    },
+    min: 50,
+    max: 1000,
+    step: 1,
   },
   {
     type: 'radio',
     name: 'shape',
-    options: {
-      items: [
-        { label: 'circle', value: 'circle' },
-        { label: 'square', value: 'square' },
-        { label: 'triangle', value: 'triangle' },
-      ],
+    items: {
+      circle: 'circle',
+      square: 'square',
+      triangle: 'triangle',
     },
   },
   {
@@ -55,10 +49,8 @@ export const config = [
       min: 4,
       max: 8,
     },
-    options: {
-      min: 0.5,
-      max: 15,
-      step: 0.5,
-    },
+    min: 0.5,
+    max: 15,
+    step: 0.5,
   },
 ] as const satisfies readonly TypedControlConfig[];
