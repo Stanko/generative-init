@@ -1,6 +1,6 @@
-import seedrandom from 'seedrandom';
 import random from './random';
 import type { Options } from './options-type';
+import Alea from './alea';
 
 const getIcon = (color: string) => {
   const canvas = document.createElement('canvas');
@@ -18,7 +18,7 @@ const setTitle = (options: Options, title = '') => {
     title += ' • ';
   }
 
-  const rng = seedrandom(JSON.stringify(options));
+  const rng = Alea(JSON.stringify(options));
 
   const l = random(0.6, 0.8, rng, 2).toString();
   const c = random(0.2, 0.4, rng, 2).toString();
@@ -32,7 +32,7 @@ const setTitle = (options: Options, title = '') => {
 
   // Probably should be removed
   // Testing colors for now
-  const controlsElement = document.querySelector('.controls') as HTMLElement;
+  const controlsElement = document.querySelector('.ctrls') as HTMLElement;
   controlsElement.style.setProperty('--ctrls-h', h);
 
   iconElement.setAttribute('href', icon);

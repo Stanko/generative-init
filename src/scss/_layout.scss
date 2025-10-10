@@ -18,7 +18,6 @@ body {
 
 .controls {
   margin-top: auto;
-  max-width: 100%;
 
   @include breakpoints.md-only {
     grid-template-columns: repeat(2, calc(50% - 0.25rem));
@@ -27,12 +26,10 @@ body {
   @include breakpoints.lg {
     align-self: flex-start;
     margin-top: 0;
-    max-width: 22rem;
   }
 }
 
 .drawing {
-  width: 100%;
   flex-grow: 1;
   max-height: 80vh;
   max-height: 80svh;
@@ -52,13 +49,4 @@ body {
   max-width: 100%;
   border: 1px solid rgb(0 0 0 / 0.075);
   border-radius: 8px;
-}
-
-.hide-controls .controls {
-  display: none;
-}
-
-.hide-controls .drawing {
-  max-height: 100vh;
-  max-height: 100svh;
 }

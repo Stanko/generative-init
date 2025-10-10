@@ -11,19 +11,16 @@
   },
   "devDependencies": {
     "@vitest/browser": "^3.2.4",
-    "playwright": "^1.53.1",
-    "sass": "^1.89.2",
-    "typescript": "~5.8.3",
-    "vite": "^7.0.6",
+    "playwright": "^1.56.0",
+    "sass": "^1.93.2",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.9",
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@stanko/dual-range-input": "^1.0.1",
-    "@types/seedrandom": "^3.0.8",
+    "@stanko/ctrls": "^0.1.4",
     "bezier-easing": "^2.1.0",
     "clipper2-wasm": "^0.2.1",
-    "lucide": "^0.533.0",
-    "mem": "^9.0.2",
-    "seedrandom": "^3.0.5"
+    "mem": "^10.0.0"
   }
 }

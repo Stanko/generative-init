@@ -1,18 +1,19 @@
-import { createElement, Download } from 'lucide';
-import { Controls } from './controls/controls';
 import { config } from './drawing/options-config';
 import render from './drawing/render';
 import { downloadSVG } from './utils/download-svg';
 import setTitle from './utils/set-title';
 
-import '@stanko/dual-range-input/dist/index.css';
+import '@stanko/ctrls/dist/ctrls.css';
 import './scss/index.scss';
+import { Ctrls } from '@stanko/ctrls';
 
 // Backup reference to the browser's Math.random method
 export const originalRandom = Math.random;
 
 // Initialize options controls
-export const controls = new Controls(config);
+export const controls = new Ctrls(config, {
+  title: 'Ctrls',
+});
 
 // Get title from the HTML
 const title = document.querySelector('title')?.textContent || '';
@@ -21,21 +22,22 @@ const title = document.querySelector('title')?.textContent || '';
 const controlsDiv = document.querySelector('.controls') as HTMLDivElement;
 const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
 
+const downloadIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5"></path></svg>`;
+
 const buildUI = () => {
-  controls.addToContainer(controlsDiv);
+  controlsDiv.appendChild(controls.element);
 
   // TODO
   // It would be nice to add a way to add elements to the controls div
   // and even group them together in one element with the randomize button
   const saveButton = document.createElement('button');
-  saveButton.classList.add('controls-save', 'controls-btn');
-  saveButton.textContent = 'Save';
-  saveButton.appendChild(createElement(Download));
+  saveButton.classList.add('controls-save', 'ctrls__btn', 'ctrls__btn--lg');
+  saveButton.innerHTML = 'Save ' + downloadIcon;
   saveButton.addEventListener('click', () => {
     const svg = drawingDiv.querySelector('svg') as SVGElement;
     downloadSVG(svg, `drawing-${window.location.hash.replace('#/', '').replace(/(\/|,)/g, '_')}.svg`);
   });
-  controlsDiv.appendChild(saveButton);
+  (controls.element.lastChild as HTMLElement).appendChild(saveButton);
 
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
@@ -47,10 +49,7 @@ const buildUI = () => {
       return;
     }
 
-    if (e.key === 'c') {
-      e.preventDefault();
-      document.body.classList.toggle('hide-controls');
-    } else if (e.key === 'r') {
+    if (e.key === 'r') {
       e.preventDefault();
       controls.randomize();
     }
@@ -58,7 +57,7 @@ const buildUI = () => {
 };
 
 const draw = async () => {
-  const options = controls.getOptions();
+  const options = controls.getValues();
 
   // Swap random method for a seeded RNG
   Math.random = options.mainSeedRng;
