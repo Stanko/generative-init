@@ -18,7 +18,7 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@stanko/ctrls": "^0.1.4",
+    "@stanko/ctrls": "^0.1.6",
     "bezier-easing": "^2.1.0",
     "clipper2-wasm": "^0.2.1",
     "mem": "^10.0.0"
