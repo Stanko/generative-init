@@ -7,6 +7,7 @@ export default async function render(options: Options): Promise<SVGElement> {
 
   // ----- SVG init ----- //
   const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
   svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
   // ----- Main logic ----- //

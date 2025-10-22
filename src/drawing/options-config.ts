@@ -1,4 +1,4 @@
-import type { TypedControlConfig } from '../controls/controls';
+import type { TypedControlConfig } from '@stanko/ctrls';
 
 export const config = [
   {
