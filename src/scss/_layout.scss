@@ -9,6 +9,8 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  max-width: 120rem;
+  margin: 0 auto;
 
   @include breakpoints.lg {
     flex-direction: row;
@@ -26,6 +28,17 @@ body {
   @include breakpoints.lg {
     align-self: flex-start;
     margin-top: 0;
+  }
+}
+
+.ctrls {
+  width: var(--ctrls-width);
+  max-width: 100%;
+  margin-bottom: 1rem;
+  margin-inline: auto;
+
+  .controls--hidden & {
+    display: none;
   }
 }
 
@@ -50,4 +63,23 @@ body {
   max-width: 100%;
   border: 1px solid rgb(0 0 0 / 0.075);
   border-radius: 8px;
+  max-width: 100%;
+  max-height: 80vh;
+  max-height: 80svh;
+
+  @include breakpoints.lg {
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100svh - 2rem);
+  }
+}
+
+canvas {
+  max-width: 100%;
+  width: 150px;
+  border-radius: 12px;
+  border: 1px solid rgb(70 70 80);
+  outline-offset: -1px;
+  z-index: 1;
+  position: relative;
+  display: block;
 }

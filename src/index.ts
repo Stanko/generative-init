@@ -52,6 +52,9 @@ const buildUI = () => {
     if (e.key === 'r') {
       e.preventDefault();
       controls.randomize();
+    } else if (e.key === 'c') {
+      e.preventDefault();
+      controlsDiv.classList.toggle('controls--hidden');
     }
   });
 };

@@ -130,18 +130,37 @@ const boolOperation = (operation: boolOperation, polygons: Point[][][], fill: Fi
 
   const method = boolOperationsMap[operation];
 
-  let paths = toPaths64(polygons[0]);
+  let result = toPaths64(polygons[0]);
+  let intermediateResult: Paths64 | null = null;
+  let currentPath: Paths64 | null = null;
 
-  for (let i = 1; i < polygons.length; i++) {
-    const path = toPaths64(polygons[i]);
-    paths = method(paths, path, fillRuleMap[fill]);
+  try {
+    for (let i = 1; i < polygons.length; i++) {
+      currentPath = toPaths64(polygons[i]);
+      intermediateResult = method(result, currentPath, fillRuleMap[fill]);
+
+      // Release memory
+      currentPath.delete();
+      result.delete();
+
+      result = intermediateResult;
+    }
+
+    if (result.size() === 0) {
+      return [];
+    }
+
+    return fromPaths64(result);
+  } finally {
+    try {
+      result.delete();
+      // TODO add a condition here to avoid try/catch
+      intermediateResult?.delete();
+      currentPath?.delete();
+    } catch (e) {
+      // This will fail if paths are already deleted, so we can fail silently
+    }
   }
-
-  if (paths.size() === 0) {
-    return [];
-  }
-
-  return fromPaths64(paths);
 };
 
 export const union = (polygons: Point[][][], fill: FillRuleString = 'even-odd'): Point[][] => {
