@@ -1,19 +1,14 @@
-import { config } from './drawing/options-config';
 import render from './drawing/render';
 import { downloadSVG } from './utils/download-svg';
 import setTitle from './utils/set-title';
+import { controls } from './drawing/options';
 
+// CSS
 import '@stanko/ctrls/dist/ctrls.css';
 import './scss/index.scss';
-import { Ctrls } from '@stanko/ctrls';
 
 // Backup reference to the browser's Math.random method
 export const originalRandom = Math.random;
-
-// Initialize options controls
-export const controls = new Ctrls(config, {
-  title: 'Ctrls',
-});
 
 // Get title from the HTML
 const title = document.querySelector('title')?.textContent || '';

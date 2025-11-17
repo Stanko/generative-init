@@ -1,4 +1,5 @@
 import type { TypedControlConfig } from '@stanko/ctrls';
+import { Ctrls } from '@stanko/ctrls';
 
 export const config = [
   {
@@ -54,3 +55,9 @@ export const config = [
     step: 0.5,
   },
 ] as const satisfies readonly TypedControlConfig[];
+
+export const controls = new Ctrls(config, {
+  title: 'Params',
+});
+
+export type Options = ReturnType<typeof controls.getValues>;
