@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+html {
+  scrollbar-color: #bbb transparent;
+  scrollbar-width: thin;
+}
+
 body {
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
@@ -14,6 +19,10 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+  html {
+    scrollbar-color: #555 transparent;
+  }
+
   body {
     background: #202125;
   }

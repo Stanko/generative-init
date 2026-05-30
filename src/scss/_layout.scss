@@ -37,6 +37,10 @@ body {
   margin-bottom: 1rem;
   margin-inline: auto;
 
+  @include breakpoints.lg {
+    margin-bottom: 0;
+  }
+
   .controls--hidden & {
     display: none;
   }
