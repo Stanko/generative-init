@@ -10,18 +10,18 @@
     "test:browser": "vitest --config=vitest.browser.config.ts"
   },
   "devDependencies": {
-    "@vitest/browser": "^4.0.10",
-    "@vitest/browser-playwright": "^4.0.10",
-    "playwright": "^1.56.1",
-    "sass": "^1.94.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.2.2",
-    "vitest": "^4.0.10"
+    "@vitest/browser": "^4.1.7",
+    "@vitest/browser-playwright": "^4.1.7",
+    "playwright": "^1.60.0",
+    "sass": "^1.100.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.14",
+    "vitest": "^4.1.7"
   },
   "dependencies": {
-    "@stanko/ctrls": "^0.3.0",
-    "bezier-easing": "^2.1.0",
-    "clipper2-wasm": "^0.2.1",
+    "@stanko/ctrls": "^0.4.8",
+    "bezier-easing": "^3.0.0",
+    "clipper2-wasm": "^0.4.0",
     "mem": "^10.0.0"
   }
 }

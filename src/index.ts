@@ -22,9 +22,13 @@ const downloadIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height=
 const buildUI = () => {
   controlsDiv.appendChild(controls.element);
 
-  // TODO
-  // It would be nice to add a way to add elements to the controls div
-  // and even group them together in one element with the randomize button
+  // <div class="ctrls__control-no-label">
+  // <button class="ctrls__randomize ctrls__btn ctrls__btn--lg">
+  // Randomize
+  // </button>
+  // </div>
+  const saveButtonWrapper = document.createElement('div');
+  saveButtonWrapper.classList.add('ctrls__control-no-label');
   const saveButton = document.createElement('button');
   saveButton.classList.add('controls-save', 'ctrls__btn', 'ctrls__btn--lg');
   saveButton.innerHTML = 'Save ' + downloadIcon;
@@ -32,7 +36,8 @@ const buildUI = () => {
     const svg = drawingDiv.querySelector('svg') as SVGElement;
     downloadSVG(svg, `drawing-${window.location.hash.replace('#/', '').replace(/(\/|,)/g, '_')}.svg`);
   });
-  (controls.element.lastChild as HTMLElement).appendChild(saveButton);
+  saveButtonWrapper.appendChild(saveButton);
+  (controls.element.querySelector('.ctrls__controls-inner') as HTMLElement).appendChild(saveButtonWrapper);
 
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
