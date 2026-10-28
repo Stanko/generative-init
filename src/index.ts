@@ -22,11 +22,6 @@ const downloadIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height=
 const buildUI = () => {
   controlsDiv.appendChild(controls.element);
 
-  // <div class="ctrls__control-no-label">
-  // <button class="ctrls__randomize ctrls__btn ctrls__btn--lg">
-  // Randomize
-  // </button>
-  // </div>
   const saveButtonWrapper = document.createElement('div');
   saveButtonWrapper.classList.add('ctrls__control-no-label');
   const saveButton = document.createElement('button');
